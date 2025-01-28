@@ -18,7 +18,6 @@
 1. Clone the repository:
    ```bash
    git clone https://github.com/0spol/ColorPlayground.git
-   cd ColorPlayground
    ```
 2. Open the project in Android Studio.
 3. Sync Gradle and build the project.
