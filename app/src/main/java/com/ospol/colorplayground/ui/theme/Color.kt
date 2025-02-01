@@ -1,5 +1,6 @@
 package com.ospol.colorplayground.ui.theme
 
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
@@ -10,10 +11,13 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-val primaryLight = Color(0xFF006A67)
-val onPrimaryLight = Color(0xFFFFFFFF)
-val primaryContainerLight = Color(0xFF9CF1ED)
-val onPrimaryContainerLight = Color(0xFF00504E)
+val CustomPrimary = Color(0xFFBB86FC)
+val CustomSecondary = Color(0xFF6200EE)
+val CustomTertiary = Color(0xFF3700B3)
+val CustomError = Color(0xFFCF6679)
+
+
+
 
 
 
