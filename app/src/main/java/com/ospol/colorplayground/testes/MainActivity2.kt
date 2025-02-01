@@ -1,4 +1,4 @@
-package com.ospol.colorplayground.data
+package com.ospol.colorplayground.testes
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
