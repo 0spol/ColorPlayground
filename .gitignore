@@ -6,6 +6,7 @@
 
 # Project cache
 .gradletasknamecache
+.kotlin/
 
 # IntelliJ/Android Studio specific
 .idea/
