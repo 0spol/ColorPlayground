@@ -1,4 +1,4 @@
-package com.ospol.colorplayground
+package com.colorplayground.application
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.ospol.colorplayground.ui.theme.ColorPlaygroundTheme
+import com.colorplayground.application.ui.theme.ColorPlaygroundTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

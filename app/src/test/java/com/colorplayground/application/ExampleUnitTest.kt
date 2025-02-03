@@ -1,4 +1,4 @@
-package com.ospol.colorplayground
+package com.colorplayground.application
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.ospol.colorplayground.ui.theme
+package com.colorplayground.application.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
