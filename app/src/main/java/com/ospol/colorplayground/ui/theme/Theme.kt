@@ -11,18 +11,22 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = CustomPrimary,
-    secondary = CustomSecondary,
-    tertiary = CustomTertiary,
-    error = CustomError
+private val LightColors = lightColorScheme(
+    primary = PrimaryLight,
+    secondary = SecondaryLight,
+    background = BackgroundLight,
+    surface = SurfaceLight,
+    onPrimary = OnPrimaryLight,
+    onSecondary = OnSecondaryLight
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = CustomPrimary,
-    secondary = CustomSecondary,
-    tertiary = CustomTertiary,
-    error = CustomError
+private val DarkColors = darkColorScheme(
+    primary = PrimaryDark,
+    secondary = SecondaryDark,
+    background = BackgroundDark,
+    surface = SurfaceDark,
+    onPrimary = OnPrimaryDark,
+
 )
 
 @Composable
@@ -36,8 +40,8 @@ fun ColorPlaygroundTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        darkTheme -> DarkColors
+        else -> LightColors
     }
 
     MaterialTheme(

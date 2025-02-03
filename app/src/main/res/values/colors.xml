@@ -9,9 +9,4 @@
     <color name="white">#FFFFFFFF</color>
 
 
-
-    <color name="custom_primary">#BB86FC</color>
-    <color name="custom_secondary">#6200EE</color>
-    <color name="custom_tertiary">#3700B3</color>
-    <color name="custom_error">#CF6679</color>
 </resources>

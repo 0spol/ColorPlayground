@@ -11,10 +11,20 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-val CustomPrimary = Color(0xFFBB86FC)
-val CustomSecondary = Color(0xFF6200EE)
-val CustomTertiary = Color(0xFF3700B3)
-val CustomError = Color(0xFFCF6679)
+// Cores do tema claro
+val PrimaryLight = Color(0xFFCDDC39)
+val SecondaryLight = Color(0xFF03DAC5)
+val BackgroundLight = Color(0xFFFFFFFF)
+val SurfaceLight = Color(0xFFFFFFFF)
+val OnPrimaryLight = Color(0xFFFFFFFF)
+val OnSecondaryLight = Color(0xFF000000)
+
+// Cores do tema escuro
+val PrimaryDark = Color(0xFFBB86FC)
+val SecondaryDark = Color(0xFFDA0392)
+val BackgroundDark = Color(0xFF121212)
+val SurfaceDark = Color(0xFF121212)
+val OnPrimaryDark = Color(0xFF000000)
 
 
 

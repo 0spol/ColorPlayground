@@ -35,8 +35,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ospol.colorplayground.R
 import com.ospol.colorplayground.ui.theme.ColorPlaygroundTheme
+import com.ospol.colorplayground.ui.theme.PrimaryDark
+import com.ospol.colorplayground.ui.theme.PrimaryLight
+import com.ospol.colorplayground.ui.theme.SecondaryDark
+import com.ospol.colorplayground.ui.theme.SecondaryLight
+import kotlin.random.Random
 
 class CardExample : ComponentActivity()     {
+
+
 override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
@@ -72,6 +79,12 @@ fun MyCardList(){
 
 @Composable
 fun MyCard2(){
+
+    val primaryColor = randomColor()
+    val secondaryColor = randomColor()
+    val tertiaryColor = randomColor()
+    val errorColor = randomColor()
+
     Column(
         modifier = Modifier.padding(5.dp)
     ) {
@@ -81,10 +94,10 @@ fun MyCard2(){
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
         ) {
             Column {
-                Box(modifier = Modifier.weight(1f).fillMaxWidth().background(colorResource(id = R.color.custom_primary)))
-                Box(modifier = Modifier.weight(1f).fillMaxWidth().background(colorResource(id = R.color.custom_secondary)))
-                Box(modifier = Modifier.weight(1f).fillMaxWidth().background(colorResource(id = R.color.custom_tertiary)))
-                Box(modifier = Modifier.weight(1f).fillMaxWidth().background(colorResource(id = R.color.custom_error)))
+                Box(modifier = Modifier.weight(1f).fillMaxWidth().background(primaryColor))
+                Box(modifier = Modifier.weight(1f).fillMaxWidth().background(secondaryColor))
+                Box(modifier = Modifier.weight(1f).fillMaxWidth().background(tertiaryColor))
+                Box(modifier = Modifier.weight(1f).fillMaxWidth().background(errorColor))
             }}
         Text(
             text = "Primera paleta",
@@ -95,6 +108,15 @@ fun MyCard2(){
             fontSize = 12.sp
         )
     }
+}
+
+fun randomColor(): Color {
+    return Color(
+        red = Random.nextFloat(),
+        green = Random.nextFloat(),
+        blue = Random.nextFloat(),
+        alpha = 1f
+    )
 }
 
 @Preview(showBackground = true)
