@@ -1,15 +1,16 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.jetbrainsKotlinSerialization)
+    alias(libs.plugins.org.jetbrains.kotlin.android)
 }
 
 android {
-    namespace = "com.ospol.colorplayground"
+    namespace = "com.colorplayground.application"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.ospol.colorplayground"
+        applicationId = "com.colorplayground.application"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -31,11 +32,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         compose = true
@@ -47,6 +45,9 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+    }
+    kotlinOptions {
+        jvmTarget = "17"
     }
 }
 
