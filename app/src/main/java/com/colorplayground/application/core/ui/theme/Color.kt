@@ -1,4 +1,4 @@
-package com.colorplayground.application.ui.theme
+package com.colorplayground.application.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
