@@ -1,4 +1,4 @@
-package com.ospol.colorplayground.testes
+package com.colorplayground.application.core.ui.screens.testes
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
