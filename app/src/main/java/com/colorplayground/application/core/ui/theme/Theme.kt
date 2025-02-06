@@ -1,4 +1,4 @@
-package com.ospol.colorplayground.ui.theme
+package com.colorplayground.application.core.ui.theme
 
 import android.app.Activity
 import android.os.Build
