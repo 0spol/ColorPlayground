@@ -5,11 +5,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -34,6 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ospol.colorplayground.R
+import com.ospol.colorplayground.ui.theme.BackgroundDark
 import com.ospol.colorplayground.ui.theme.ColorPlaygroundTheme
 import com.ospol.colorplayground.ui.theme.PrimaryDark
 import com.ospol.colorplayground.ui.theme.PrimaryLight
@@ -48,8 +51,9 @@ override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
     setContent {
-        ColorPlaygroundTheme {
-            Surface (color = MaterialTheme.colorScheme.background ){
+        ColorPlaygroundTheme (darkTheme = isSystemInDarkTheme(), dynamicColor = false){
+            Surface ( modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background){
                 MyCardList()
             }
 
@@ -61,7 +65,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 @Composable
 fun MyCardList(){
     LazyColumn(
-        modifier = Modifier.padding(10.dp).padding(top = 20.dp),
+        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).padding(10.dp).padding(top = 20.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(7) {
@@ -105,7 +109,8 @@ fun MyCard2(){
                 .fillMaxWidth()
                 .padding(top = 5.dp).align(Alignment.CenterHorizontally),
             textAlign = TextAlign.Center,
-            fontSize = 12.sp
+            fontSize = 12.sp,
+            color = Color.White
         )
     }
 }

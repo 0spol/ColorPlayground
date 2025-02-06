@@ -16,9 +16,6 @@
             android:name="MainActivity"
             android:exported="false" />
         <activity
-            android:name=".testes.MainActivity2"
-            android:exported="false" />
-        <activity
             android:name=".testes.CardExample"
             android:exported="true"
             android:theme="@style/Theme.ColorPlayground">
