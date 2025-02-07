@@ -1,4 +1,4 @@
-package com.colorplayground.application.core.navigation
+package com.colorplayground.application.navigation
 
 import kotlinx.serialization.Serializable
 

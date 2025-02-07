@@ -1,11 +1,11 @@
-package com.colorplayground.application.viewModel
+package com.colorplayground.application.domain
 
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
-import com.colorplayground.application.model.ColorPalette
 import kotlin.random.Random
+import com.colorplayground.application.data.di.ColorPalette
 
-class ColorViewModel : ViewModel() {
+class ColorVM : ViewModel() {
 
     fun generateColorPalletes(count : Int) : List<ColorPalette> {
         return List(count) { index ->

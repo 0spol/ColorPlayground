@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
-import com.colorplayground.application.core.navigation.ImagePreviewS
 
 @Composable
 fun ImagePreviewS( navigateBack: () -> Unit ) {
