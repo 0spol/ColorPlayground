@@ -1,0 +1,40 @@
+# Gradle specific
+.gradle/
+**/build/
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# Project cache
+.gradletasknamecache
+.kotlin/
+
+# IntelliJ/Android Studio specific
+.idea/
+*.iml
+*.hprof
+/out/
+
+# User-specific configuration files
+local.properties
+*.log
+*.tmp
+*.lock
+
+# Eclipse specific
+.project
+.classpath
+
+# Compiled class files
+*.class
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Generated assets
+/captures/
+/output.json
+
+# Ignore miscellaneous
+*.keystore
+*.jks
