@@ -42,4 +42,6 @@ class LoginPalette : AppCompatActivity() {
             insets
         }
     }
+
+
 }
