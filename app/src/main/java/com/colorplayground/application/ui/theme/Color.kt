@@ -13,5 +13,11 @@ val Pink40 = Color(0xFF7D5260)
 // Colores del proyecto
 val black_Color = Color(0xFF000000)
 val white_Color = Color(0xFFFFFFFF)
-val new_tint_color = Color(0xFF262626) // Exemplo de cor
-val default_tint_color = Color(0xFF595959) // Exemplo de cor
+val new_tint_color = Color(0xFF262626)
+val default_tint_color = Color(0xFF595959)
+
+// Nuevas colores
+val verde_neon = Color(0xFF0CF25D)
+val verde_medio = Color(0xFF038C3E)
+val verde_medio_escoro = Color(0xFF02735E)
+val verde_escuro = Color(0xFF025951)

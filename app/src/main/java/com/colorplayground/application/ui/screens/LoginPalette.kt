@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -16,6 +17,9 @@ import com.colorplayground.application.R
 import com.colorplayground.application.core.ui.theme.black_Color
 import com.colorplayground.application.core.ui.theme.default_tint_color
 import com.colorplayground.application.core.ui.theme.new_tint_color
+import com.colorplayground.application.core.ui.theme.verde_escuro
+import com.colorplayground.application.core.ui.theme.verde_medio
+import com.colorplayground.application.core.ui.theme.verde_neon
 import com.colorplayground.application.core.ui.theme.white_Color
 import com.colorplayground.application.domain.LoginPaletteVM
 
@@ -27,6 +31,10 @@ class LoginPalette : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_login_palette)
 
+        window.statusBarColor = ContextCompat.getColor(this, R.color.white)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.white)
+
+        val mainLayout: ConstraintLayout = findViewById(R.id.main)
         val imageView: ImageView = findViewById(R.id.imageView)
         val changeColorButton: Button = findViewById(R.id.changeColorButton)
         val iconLogo: ImageView = findViewById(R.id.imageView2)
@@ -73,6 +81,10 @@ class LoginPalette : AppCompatActivity() {
             iconLogo.background = drawable
         })
 
+        viewModel.backgroundColorAll.observe(this, Observer { color ->
+            mainLayout.setBackgroundColor(color)
+        })
+
         viewModel.strokeColor.observe(this, Observer { color ->
             val drawable = ContextCompat.getDrawable(this, R.drawable.icon_logo) as GradientDrawable
             drawable.setStroke(10, color)
@@ -82,13 +94,14 @@ class LoginPalette : AppCompatActivity() {
 
 
         changeColorButton.setOnClickListener {
-            viewModel.changeTintColor(new_tint_color)
-            viewModel.changeButtonColor(default_tint_color)
-            viewModel.changeButtonTextColor(white_Color)
-            viewModel.changeIconColor(black_Color)
-            viewModel.changeTextColor(default_tint_color)
-            viewModel.changeBackgroundColor(default_tint_color)
-            viewModel.changeStrokeColor(new_tint_color)
+            viewModel.chanceBackgroundColorAll(verde_escuro)
+            viewModel.changeTintColor(verde_neon)
+            viewModel.changeButtonColor(verde_neon)
+            viewModel.changeButtonTextColor(verde_medio)
+            viewModel.changeIconColor(verde_neon)
+            viewModel.changeTextColor(verde_medio)
+            viewModel.changeBackgroundColor(verde_escuro)
+            viewModel.changeStrokeColor(verde_neon)
             viewModel.generateGradientBitmap(R.drawable.tinta0)
         }
 

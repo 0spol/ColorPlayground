@@ -21,10 +21,15 @@ import androidx.lifecycle.ViewModel
 import com.colorplayground.application.R
 import com.colorplayground.application.core.ui.theme.black_Color
 import com.colorplayground.application.core.ui.theme.default_tint_color
+import com.colorplayground.application.core.ui.theme.verde_neon
 import com.colorplayground.application.core.ui.theme.white_Color
 
 
 class LoginPaletteVM(application: Application) : AndroidViewModel(application) {
+
+    private val _backgroundColorAll = MutableLiveData<Int>()
+    val backgroundColorAll: LiveData<Int> get() = _backgroundColorAll
+
     private val _imageTintColor = MutableLiveData<Int>()
     val imageTintColor: LiveData<Int> get() = _imageTintColor
 
@@ -53,11 +58,12 @@ class LoginPaletteVM(application: Application) : AndroidViewModel(application) {
 
     //Color original
     init {
+        _backgroundColorAll.value = black_Color.toArgb()
         _imageTintColor.value = white_Color.toArgb()
         _buttonColor.value = white_Color.toArgb()
-        _iconColor.value = black_Color.toArgb()
+        _iconColor.value = white_Color.toArgb()
         _textColor.value = white_Color.toArgb()
-        _backgroundColor.value = default_tint_color.toArgb()
+        _backgroundColor.value = black_Color.toArgb()
         _strokeColor.value = white_Color.toArgb()
         _buttonTextColor.value = black_Color.toArgb()
     }
@@ -78,6 +84,10 @@ class LoginPaletteVM(application: Application) : AndroidViewModel(application) {
         _buttonColor.value = color
     }
 */
+    fun chanceBackgroundColorAll(newColor: androidx.compose.ui.graphics.Color) {
+        _backgroundColorAll.value = newColor.toArgb()
+    }
+
     fun changeButtonColor(newColor: androidx.compose.ui.graphics.Color) {
         _buttonColor.value = newColor.toArgb()
 
