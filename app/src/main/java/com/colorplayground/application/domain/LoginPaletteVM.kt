@@ -12,12 +12,16 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.Shader
 import android.graphics.drawable.GradientDrawable
+import androidx.compose.ui.graphics.toArgb
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.colorplayground.application.R
+import com.colorplayground.application.core.ui.theme.black_Color
+import com.colorplayground.application.core.ui.theme.default_tint_color
+import com.colorplayground.application.core.ui.theme.white_Color
 
 
 class LoginPaletteVM(application: Application) : AndroidViewModel(application) {
@@ -29,6 +33,9 @@ class LoginPaletteVM(application: Application) : AndroidViewModel(application) {
 
     private val _buttonColor = MutableLiveData<Int>()
     val buttonColor : LiveData<Int> get() = _buttonColor
+
+    private val _buttonTextColor = MutableLiveData<Int>()
+    val buttonTextColor: LiveData<Int> get() = _buttonTextColor
 
     private val _iconColor = MutableLiveData<Int>()
     val iconColor : LiveData<Int> get() = _iconColor
@@ -46,39 +53,59 @@ class LoginPaletteVM(application: Application) : AndroidViewModel(application) {
 
     //Color original
     init {
-        _imageTintColor.value = R.color.default_tint_color
-        _buttonColor.value = R.color.new_tint_color
-        _iconColor.value = R.id.imageView2
-        _textColor.value = R.color.white
-        _backgroundColor.value = R.color.new_tint_color
-        _strokeColor.value = R.color.default_tint_color
+        _imageTintColor.value = white_Color.toArgb()
+        _buttonColor.value = white_Color.toArgb()
+        _iconColor.value = black_Color.toArgb()
+        _textColor.value = white_Color.toArgb()
+        _backgroundColor.value = default_tint_color.toArgb()
+        _strokeColor.value = white_Color.toArgb()
+        _buttonTextColor.value = black_Color.toArgb()
     }
 
-    fun changeTintColor(newColorResId: Int) {
-        _imageTintColor.value = newColorResId
-    }
 
+    /*
     fun changeButtonColor(newColorResId: Int) {
         val color = ContextCompat.getColor(getApplication(), newColorResId)
         val drawable = ContextCompat.getDrawable(getApplication(), R.drawable.edit_button) as GradientDrawable
         drawable.setColor(color)
         _buttonColor.value = newColorResId
+    }*/
+/*
+    fun changeButtonColor(newColor: androidx.compose.ui.graphics.Color) {
+        val color = newColor.toArgb()
+        val drawable = ContextCompat.getDrawable(getApplication(), R.drawable.edit_button) as GradientDrawable
+        drawable.setColor(color)
+        _buttonColor.value = color
+    }
+*/
+    fun changeButtonColor(newColor: androidx.compose.ui.graphics.Color) {
+        _buttonColor.value = newColor.toArgb()
+
     }
 
-    fun changeIconColor(newColorResId: Int) {
-        _iconColor.value = newColorResId
+    fun changeButtonTextColor(newColor: androidx.compose.ui.graphics.Color) {
+        _buttonTextColor.value = newColor.toArgb()
     }
 
-    fun changeTextColor(newColorResId: Int) {
-        _textColor.value = newColorResId
+
+    fun changeTintColor(newColor: androidx.compose.ui.graphics.Color) {
+        _imageTintColor.value = newColor.toArgb()
     }
 
-    fun changeBackgroundColor(newColorResId: Int) {
-        _backgroundColor.value = newColorResId
+    fun changeIconColor(newColor: androidx.compose.ui.graphics.Color) {
+        _iconColor.value = newColor.toArgb()
     }
 
-    fun changeStrokeColor(newColorResId: Int) {
-        _strokeColor.value = newColorResId
+    fun changeTextColor(newColor: androidx.compose.ui.graphics.Color) {
+        _textColor.value = newColor.toArgb()
+    }
+
+    fun changeBackgroundColor(newColor: androidx.compose.ui.graphics.Color) {
+        _backgroundColor.value = newColor.toArgb()
+    }
+
+    fun changeStrokeColor(newColor: androidx.compose.ui.graphics.Color) {
+        _strokeColor.value = newColor.toArgb()
     }
 
 
