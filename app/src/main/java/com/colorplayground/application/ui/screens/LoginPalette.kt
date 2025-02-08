@@ -27,10 +27,16 @@ class LoginPalette : AppCompatActivity() {
         viewModel.imageTintColor.observe(this, Observer { colorResId ->
             val color = ContextCompat.getColor(this, colorResId)
             imageView.setColorFilter(color)
+            viewModel.generateGradientBitmap(R.drawable.tinta0)
+        })
+
+        viewModel.gradientBitmap.observe(this, Observer { bitmap ->
+            imageView.setImageBitmap(bitmap)
         })
 
         changeColorButton.setOnClickListener {
             viewModel.changeTintColor(R.color.new_tint_color)
+            viewModel.generateGradientBitmap(R.drawable.tinta0)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

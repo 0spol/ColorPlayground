@@ -60,21 +60,25 @@
         android:id="@+id/button"
         android:layout_width="122dp"
         android:layout_height="49dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="114dp"
         android:text="Button"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPassword" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPassword"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="121dp"
         android:layout_height="48dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginTop="115dp"
         android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/editTextTextPassword"
-        tools:layout_editor_absoluteX="230dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
