@@ -36,11 +36,22 @@ class LoginPaletteVM(application: Application) : AndroidViewModel(application) {
     private val _textColor = MutableLiveData<Int>()
     val textColor : LiveData<Int> get() = _textColor
 
+    private val _backgroundColor = MutableLiveData<Int>()
+    val backgroundColor: LiveData<Int> get() = _backgroundColor
+
+    private val _strokeColor = MutableLiveData<Int>()
+    val strokeColor: LiveData<Int> get() = _strokeColor
+
+
+
+    //Color original
     init {
         _imageTintColor.value = R.color.default_tint_color
         _buttonColor.value = R.color.new_tint_color
-        _iconColor.value = R.color.new_tint_color
+        _iconColor.value = R.id.imageView2
         _textColor.value = R.color.white
+        _backgroundColor.value = R.color.new_tint_color
+        _strokeColor.value = R.color.default_tint_color
     }
 
     fun changeTintColor(newColorResId: Int) {
@@ -60,6 +71,14 @@ class LoginPaletteVM(application: Application) : AndroidViewModel(application) {
 
     fun changeTextColor(newColorResId: Int) {
         _textColor.value = newColorResId
+    }
+
+    fun changeBackgroundColor(newColorResId: Int) {
+        _backgroundColor.value = newColorResId
+    }
+
+    fun changeStrokeColor(newColorResId: Int) {
+        _strokeColor.value = newColorResId
     }
 
 

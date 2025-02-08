@@ -79,12 +79,14 @@
         app:layout_constraintTop_toTopOf="@+id/editTextTextPassword"
         app:layout_constraintVertical_bias="0.0" />
 
+
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="169dp"
-        android:layout_height="149dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginTop="60dp"
-        android:src="@drawable/icon_logo"
+        android:src="@drawable/ic_launcher_foreground"
+        android:background="@drawable/icon_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

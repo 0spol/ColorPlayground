@@ -42,11 +42,6 @@ class LoginPalette : AppCompatActivity() {
             imageView.setImageBitmap(bitmap)
         })
 
-        viewModel.buttonColor.observe(this, Observer { colorResId ->
-            val color = ContextCompat.getColor(this, colorResId)
-            button1.setBackgroundColor(color)
-            button2.setBackgroundColor(color)
-        })
 
         viewModel.iconColor.observe(this, Observer { colorResId ->
             val color = ContextCompat.getColor(this, colorResId)
@@ -60,14 +55,6 @@ class LoginPalette : AppCompatActivity() {
             textView3.setTextColor(color)
         })
 
-        changeColorButton.setOnClickListener {
-            viewModel.changeTintColor(R.color.new_tint_color)
-            viewModel.changeButtonColor(R.color.default_tint_color)
-            viewModel.changeIconColor(R.color.default_tint_color)
-            viewModel.changeTextColor(R.color.default_tint_color)
-            viewModel.generateGradientBitmap(R.drawable.tinta0)
-        }
-
         viewModel.buttonColor.observe(this, Observer { colorResId ->
             val color = ContextCompat.getColor(this, colorResId)
             val drawable = ContextCompat.getDrawable(this, R.drawable.edit_button) as GradientDrawable
@@ -75,6 +62,33 @@ class LoginPalette : AppCompatActivity() {
             button1.background = drawable
             button2.background = drawable
         })
+
+        viewModel.backgroundColor.observe(this, Observer { colorResId ->
+            val color = ContextCompat.getColor(this, colorResId)
+            val drawable = ContextCompat.getDrawable(this, R.drawable.icon_logo) as GradientDrawable
+            drawable.setColor(color)
+            iconLogo.background = drawable
+        })
+
+        viewModel.strokeColor.observe(this, Observer { colorResId ->
+            val color = ContextCompat.getColor(this, colorResId)
+            val drawable = ContextCompat.getDrawable(this, R.drawable.icon_logo) as GradientDrawable
+            drawable.setStroke(10, color)
+            iconLogo.background = drawable
+        })
+
+
+        changeColorButton.setOnClickListener {
+            viewModel.changeTintColor(R.color.new_tint_color)
+            viewModel.changeButtonColor(R.color.default_tint_color)
+            viewModel.changeIconColor(R.color.black)
+            viewModel.changeTextColor(R.color.default_tint_color)
+
+            viewModel.changeBackgroundColor(R.color.default_tint_color)
+            viewModel.changeStrokeColor(R.color.new_tint_color)
+
+            viewModel.generateGradientBitmap(R.drawable.tinta0)
+        }
 
 
 
