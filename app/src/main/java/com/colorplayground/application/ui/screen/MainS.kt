@@ -1,4 +1,4 @@
-package com.colorplayground.application.core.ui.screens
+package com.colorplayground.application.ui.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

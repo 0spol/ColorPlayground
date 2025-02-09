@@ -1,8 +1,6 @@
 package com.colorplayground.application.data.di
 
-import android.graphics.Color
-
-data class ColorPalette(
+data class ColorPaletteDTO(
     val id: Int,
     val primaryColor: androidx.compose.ui.graphics.Color,
     val secondaryColor: androidx.compose.ui.graphics.Color,

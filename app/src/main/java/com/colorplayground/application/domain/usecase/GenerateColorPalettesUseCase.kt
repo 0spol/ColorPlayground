@@ -1,15 +1,20 @@
-package com.colorplayground.application.domain
+package com.colorplayground.application.domain.usecase
 
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
+import com.colorplayground.application.data.model.ColorPalette
 import kotlin.random.Random
-import com.colorplayground.application.data.di.ColorPalette
+import com.colorplayground.application.data.repository.ColorPaletteRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class ColorVM : ViewModel() {
-
-    fun generateColorPalletes(count : Int) : List<ColorPalette> {
+@HiltViewModel
+class GenerateColorPalettesUseCase @Inject constructor(
+    private val colorPaletteRepository: ColorPaletteRepository
+) : ViewModel() {
+    fun execute(count: Int): List<ColorPalette> {
         return List(count) { index ->
-            ColorPalette (
+            ColorPalette(
                 id = index,
                 primaryColor = randomColor(),
                 secondaryColor = randomColor(),
@@ -20,7 +25,7 @@ class ColorVM : ViewModel() {
         }
     }
 
-    private fun randomColor() : Color {
+    private fun randomColor(): Color {
         return Color(
             red = Random.nextFloat(),
             green = Random.nextFloat(),
@@ -28,6 +33,4 @@ class ColorVM : ViewModel() {
             alpha = 1f
         )
     }
-
-
 }
