@@ -52,7 +52,12 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-
+    kapt {
+        correctErrorTypes = true
+    }
+    hilt {
+        enableAggregatingTask = false
+    }
 }
 
 dependencies {
@@ -65,6 +70,7 @@ dependencies {
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+
 
     // --- Room (Base de Datos) ---
     implementation(libs.room.runtime)

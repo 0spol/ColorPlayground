@@ -5,8 +5,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.colorplayground.application.core.ui.screens.LoginPreviewS
-import com.colorplayground.application.core.ui.screens.ImagePreviewS
+import com.colorplayground.application.ui.screen.LoginPreviewS
+import com.colorplayground.application.ui.screen.ImagePreviewS
 import com.colorplayground.application.ui.screen.MainS
 import com.colorplayground.application.ui.screen.MenuS
 import com.colorplayground.application.ui.screen.SaveS

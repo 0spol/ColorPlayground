@@ -47,11 +47,9 @@ androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-
 
 # Hilt & Dagger
 hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
-hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
-android-hilt = { module = "androidx.hilt:hilt-compiler", version = "1.2.0" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidxHilt" }
 
-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 
 # Room (Base de datos)
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
