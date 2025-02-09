@@ -14,13 +14,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import com.colorplayground.application.R
-import com.colorplayground.application.core.ui.theme.black_Color
-import com.colorplayground.application.core.ui.theme.default_tint_color
-import com.colorplayground.application.core.ui.theme.new_tint_color
 import com.colorplayground.application.core.ui.theme.verde_escuro
 import com.colorplayground.application.core.ui.theme.verde_medio
 import com.colorplayground.application.core.ui.theme.verde_neon
-import com.colorplayground.application.core.ui.theme.white_Color
 import com.colorplayground.application.domain.LoginPaletteVM
 
 class LoginPalette : AppCompatActivity() {

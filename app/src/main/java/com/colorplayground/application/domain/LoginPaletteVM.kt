@@ -11,18 +11,13 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.Shader
-import android.graphics.drawable.GradientDrawable
 import androidx.compose.ui.graphics.toArgb
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.colorplayground.application.R
 import com.colorplayground.application.core.ui.theme.black_Color
-import com.colorplayground.application.core.ui.theme.default_tint_color
-import com.colorplayground.application.core.ui.theme.verde_neon
 import com.colorplayground.application.core.ui.theme.white_Color
+import com.colorplayground.application.data.di.BitmapRepository
 
 
 class LoginPaletteVM(application: Application) : AndroidViewModel(application) {
@@ -35,6 +30,8 @@ class LoginPaletteVM(application: Application) : AndroidViewModel(application) {
 
     private val _gradientBitmap = MutableLiveData<Bitmap>()
     val gradientBitmap: LiveData<Bitmap> get() = _gradientBitmap
+
+    private val bitmapRepository = BitmapRepository(application)
 
     private val _buttonColor = MutableLiveData<Int>()
     val buttonColor : LiveData<Int> get() = _buttonColor
@@ -69,21 +66,6 @@ class LoginPaletteVM(application: Application) : AndroidViewModel(application) {
     }
 
 
-    /*
-    fun changeButtonColor(newColorResId: Int) {
-        val color = ContextCompat.getColor(getApplication(), newColorResId)
-        val drawable = ContextCompat.getDrawable(getApplication(), R.drawable.edit_button) as GradientDrawable
-        drawable.setColor(color)
-        _buttonColor.value = newColorResId
-    }*/
-/*
-    fun changeButtonColor(newColor: androidx.compose.ui.graphics.Color) {
-        val color = newColor.toArgb()
-        val drawable = ContextCompat.getDrawable(getApplication(), R.drawable.edit_button) as GradientDrawable
-        drawable.setColor(color)
-        _buttonColor.value = color
-    }
-*/
     fun chanceBackgroundColorAll(newColor: androidx.compose.ui.graphics.Color) {
         _backgroundColorAll.value = newColor.toArgb()
     }
@@ -118,34 +100,7 @@ class LoginPaletteVM(application: Application) : AndroidViewModel(application) {
         _strokeColor.value = newColor.toArgb()
     }
 
-
     fun generateGradientBitmap(resourceId: Int) {
-        val originalBitmap = BitmapFactory.decodeResource(getApplication<Application>().resources, resourceId)
-        val maskBitmap = Bitmap.createBitmap(originalBitmap.width, originalBitmap.height, Bitmap.Config.ARGB_8888)
-
-        val canvas = Canvas(maskBitmap)
-        val paint = Paint()
-
-
-        val gradient = LinearGradient(
-            0f, maskBitmap.height.toFloat(), 0f, 0f,
-            Color.TRANSPARENT, Color.BLACK,
-            Shader.TileMode.CLAMP
-        )
-
-        paint.shader = gradient
-        canvas.drawRect(0f, 0f, maskBitmap.width.toFloat(), maskBitmap.height.toFloat(), paint)
-
-        val maskedPaint = Paint()
-        maskedPaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_IN)
-
-
-        val resultBitmap = Bitmap.createBitmap(originalBitmap.width, originalBitmap.height, Bitmap.Config.ARGB_8888)
-        val resultCanvas = Canvas(resultBitmap)
-
-        resultCanvas.drawBitmap(originalBitmap, 0f, 0f, null)
-        resultCanvas.drawBitmap(maskBitmap, 0f, 0f, maskedPaint)
-
-        _gradientBitmap.value = resultBitmap
+        _gradientBitmap.value = bitmapRepository.generateGradientBitmap(resourceId)
     }
 }
