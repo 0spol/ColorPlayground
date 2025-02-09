@@ -23,7 +23,7 @@ import com.colorplayground.application.ui.components.MyCard
 fun SaveS(navigateToMainS: () -> Unit, viewModel: ColorVM = viewModel()) {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color.Black // Define o fundo da página como preto
+        color = Color.Black
     ) {
     val colorPalette = viewModel.generateColorPalletes(16)
     LazyColumn(

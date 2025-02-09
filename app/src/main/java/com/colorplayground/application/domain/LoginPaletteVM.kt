@@ -3,14 +3,6 @@ package com.colorplayground.application.domain
 
 import android.app.Application
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.LinearGradient
-import android.graphics.Paint
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffXfermode
-import android.graphics.Shader
 import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -21,6 +13,8 @@ import com.colorplayground.application.data.di.BitmapRepository
 
 
 class LoginPaletteVM(application: Application) : AndroidViewModel(application) {
+
+    //Código que se comunica con LoginPalette
 
     private val _backgroundColorAll = MutableLiveData<Int>()
     val backgroundColorAll: LiveData<Int> get() = _backgroundColorAll

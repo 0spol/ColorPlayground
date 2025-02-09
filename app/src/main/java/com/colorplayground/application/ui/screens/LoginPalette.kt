@@ -3,8 +3,10 @@ package com.colorplayground.application.ui.screens
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -18,9 +20,11 @@ import com.colorplayground.application.core.ui.theme.verde_escuro
 import com.colorplayground.application.core.ui.theme.verde_medio
 import com.colorplayground.application.core.ui.theme.verde_neon
 import com.colorplayground.application.domain.LoginPaletteVM
+import com.colorplayground.application.domain.LoginValidacionVM
 
 class LoginPalette : AppCompatActivity() {
     private val viewModel: LoginPaletteVM by viewModels()
+    private val loginViewModel: LoginValidacionVM by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +41,6 @@ class LoginPalette : AppCompatActivity() {
         val textView: TextView = findViewById(R.id.textView)
         val textView2: TextView = findViewById(R.id.textView2)
         val textView3: TextView = findViewById(R.id.textView3)
-        val button1: Button = findViewById(R.id.button)
         val button2: Button = findViewById(R.id.button2)
 
         viewModel.imageTintColor.observe(this, Observer { color ->
@@ -60,14 +63,13 @@ class LoginPalette : AppCompatActivity() {
         })
 
         viewModel.buttonColor.observe(this, Observer { color ->
-            val drawable = ContextCompat.getDrawable(this, R.drawable.edit_button) as GradientDrawable
+            val drawable =
+                ContextCompat.getDrawable(this, R.drawable.edit_button) as GradientDrawable
             drawable.setColor(color)
-            button1.background = drawable
             button2.background = drawable
         })
 
         viewModel.buttonTextColor.observe(this, Observer { color ->
-            button1.setTextColor(color)
             button2.setTextColor(color)
         })
 
@@ -89,6 +91,7 @@ class LoginPalette : AppCompatActivity() {
 
 
 
+
         changeColorButton.setOnClickListener {
             viewModel.chanceBackgroundColorAll(verde_escuro)
             viewModel.changeTintColor(verde_neon)
@@ -106,5 +109,27 @@ class LoginPalette : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        //Código para validar el login
+        val emailEditText: EditText = findViewById(R.id.editTextTextEmailAddress2)
+        val passwordEditText: EditText = findViewById(R.id.editTextTextPassword)
+
+        button2.setOnClickListener {
+            val email = emailEditText.text.toString()
+            val password = passwordEditText.text.toString()
+            loginViewModel.validateLogin(email, password)
+        }
+
+        loginViewModel.loginState.observe(this, Observer { state ->
+            when (state) {
+                LoginValidacionVM.LoginState.SUCCESS -> {
+                    Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+                }
+                LoginValidacionVM.LoginState.FAILURE -> {
+                    Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
     }
 }
