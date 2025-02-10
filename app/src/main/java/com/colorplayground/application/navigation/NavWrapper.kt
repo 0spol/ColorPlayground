@@ -1,7 +1,7 @@
 package com.colorplayground.application.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -19,12 +19,12 @@ fun NavWrapper() {
         composable<MainS> {
             MainS(
                 navigateToSaveS = { navController.navigate(SaveS) },
-                navigateToMenuS = { navController.navigate(MenuS) })
+                navigateToMenuS = { navController.navigate(MenuS) },
+            )
         }
         composable<SaveS> {
             SaveS(
                 navigateToMainS = { navController.navigate(MainS) },
-                viewModel = viewModel<ColorPaletteViewModel>()
             )
 
         }

@@ -1,14 +1,24 @@
 package com.colorplayground.application.ui.viewmodel
 
+import android.util.Log
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModel
 import com.colorplayground.application.data.model.ColorPalette
 import com.colorplayground.application.data.repository.ColorPaletteRepository
+import com.colorplayground.application.domain.usecase.SavePaletteUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-class ColorPaletteViewModel(private val repository: ColorPaletteRepository) : ViewModel() {
+import javax.inject.Inject
+import kotlin.random.Random
+
+@HiltViewModel
+class ColorPaletteViewModel @Inject constructor(
+    private val savePaletteUseCase: SavePaletteUseCase,
+    private val repository: ColorPaletteRepository
+) : ViewModel() {
 
     private val _colorPalettes = MutableStateFlow<List<ColorPalette>>(emptyList())
     val colorPalettes: StateFlow<List<ColorPalette>> = _colorPalettes
@@ -17,40 +27,63 @@ class ColorPaletteViewModel(private val repository: ColorPaletteRepository) : Vi
     val savedPalettes: StateFlow<List<ColorPalette>> = _savedPalettes
 
     init {
-        // Obtener las paletas guardadas cuando se inicia el ViewModel
         loadSavedPalettes()
     }
 
+    // Generando colores más vivos
     fun generatePalettes(count: Int) {
-        // Lógica para generar nuevas paletas (puedes personalizar esto)
         _colorPalettes.value = List(count) {
             ColorPalette(
-                id = it,
-                primaryColor = Color.Black,  // Cambia esto según la lógica para generar colores aleatorios
-                secondaryColor = Color.Gray,
-                tertiaryColor = Color.Blue,
-                errorColor = Color.Red,
-                nombre = "Paleta ${it + 1}"
+                id =  System.currentTimeMillis(),
+                primaryColor = Color(
+                    Random.nextFloat() * 0.8f + 0.2f,
+                    Random.nextFloat() * 0.8f + 0.2f,
+                    Random.nextFloat() * 0.8f + 0.2f,
+                    1f
+                ),
+                secondaryColor = Color(
+                    Random.nextFloat() * 0.8f + 0.2f,
+                    Random.nextFloat() * 0.8f + 0.2f,
+                    Random.nextFloat() * 0.8f + 0.2f,
+                    1f
+                ),
+                tertiaryColor = Color(
+                    Random.nextFloat() * 0.8f + 0.2f,
+                    Random.nextFloat() * 0.8f + 0.2f,
+                    Random.nextFloat() * 0.8f + 0.2f,
+                    1f
+                ),
+                errorColor = Color(
+                    Random.nextFloat() * 0.8f + 0.2f,
+                    Random.nextFloat() * 0.8f + 0.2f,
+                    Random.nextFloat() * 0.8f + 0.2f,
+                    1f
+                ),
+                name = "Paleta ${savedPalettes.value.size + 1}"
             )
         }
+        Log.d("ColorPaletteViewModel", "Paletas generadas: ${_colorPalettes.value}")
     }
 
     fun savePalette(palette: ColorPalette) {
-        // Aquí guardas la paleta en la base de datos (o en tu repositorio)
         viewModelScope.launch {
-            repository.savePalette(palette)
-            loadSavedPalettes() // Vuelve a cargar las paletas guardadas
+            savePaletteUseCase.execute(palette)
+            loadSavedPalettes() // Recarga las paletas guardadas después de guardar
+            Log.d("ColorPaletteViewModel", "Paleta guardada: $palette")
         }
     }
 
     private fun loadSavedPalettes() {
         viewModelScope.launch {
-            repository.getAllPalettes().collect { palettes ->
-                _savedPalettes.value = palettes
+            repository.getAllPalettes().collect { paletteEntities ->
+                Log.d("ColorPaletteViewModel", "Paletas guardadas: $paletteEntities")
+                _savedPalettes.value = paletteEntities
             }
         }
     }
 }
+
+
 
 
 

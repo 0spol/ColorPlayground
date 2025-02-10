@@ -12,18 +12,19 @@ import javax.inject.Inject
 class GenerateColorPalettesUseCase @Inject constructor(
     private val colorPaletteRepository: ColorPaletteRepository
 ) : ViewModel() {
-    fun execute(count: Int): List<ColorPalette> {
-        return List(count) { index ->
-            ColorPalette(
-                id = index,
-                primaryColor = randomColor(),
-                secondaryColor = randomColor(),
-                tertiaryColor = randomColor(),
-                errorColor = randomColor(),
-                nombre = "Paleta ${index + 1}"
-            )
-        }
-    }
+
+//    fun execute(count: Int): List<ColorPalette> {
+//        return List(count) { index ->
+//            ColorPalette(
+//                id = index,
+//                primaryColor = randomColor(),
+//                secondaryColor = randomColor(),
+//                tertiaryColor = randomColor(),
+//                errorColor = randomColor(),
+//                nombre = "Paleta ${index + 1}"
+//            )
+//        }
+//    }
 
     private fun randomColor(): Color {
         return Color(

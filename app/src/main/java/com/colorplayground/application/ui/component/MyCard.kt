@@ -40,7 +40,7 @@ fun MyCard(colorPalette: ColorPalette, onSave: (() -> Unit)? = null) {
         }
 
         Text(
-            text = colorPalette.nombre,
+            text = colorPalette.name,
             modifier = Modifier.padding(top = 5.dp),
             textAlign = TextAlign.Center,
             fontSize = 12.sp,

@@ -11,7 +11,7 @@ class ColorPaletteRepository @Inject constructor(private val dao: ColorPaletteDa
 
     fun getAllPalettes(): Flow<List<ColorPalette>> {
         return dao.getAllPalettes().map { entities ->
-            entities.map { it.toDomain() } // Convertir de `ColorPaletteEntity` a `ColorPalette`
+            entities.map { it.toDomain() }
         }
     }
 
