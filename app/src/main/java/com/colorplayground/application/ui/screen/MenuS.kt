@@ -1,4 +1,4 @@
-package com.colorplayground.application.core.ui.screens
+package com.colorplayground.application.ui.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -11,15 +11,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun LoginPreviewS( navigateBack: () -> Unit ) {
+fun MenuS(
+    navigateToMainS: () -> Unit,
+    navigateToLoginPreviewS: () -> Unit,
+    navigateToImagePreview: () -> Unit
+) {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = Modifier.weight(1f))
-        Text(text = "LOGIN PREVIEW SCREEN", fontSize = 25.sp)
+        Text(text = "MENU SCREEN", fontSize = 25.sp)
         Spacer(modifier = Modifier.weight(1f))
-        Button(onClick = { navigateBack() }) {
-            Text(text = "Volver")
+        Button(onClick = { navigateToMainS() }) {
+            Text(text = "Navegar a Main Screen")
+        }
+        Button(onClick = { navigateToLoginPreviewS() }) {
+            Text(text = "Navegar a Login Preview")
+        }
+        Button(onClick = { navigateToImagePreview() }) {
+            Text(text = "Navegar a Image Preview")
         }
         Spacer(modifier = Modifier.weight(1f))
     }
-
 }
