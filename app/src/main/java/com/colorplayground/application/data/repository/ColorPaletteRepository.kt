@@ -16,11 +16,15 @@ class ColorPaletteRepository @Inject constructor(private val dao: ColorPaletteDa
     }
 
     suspend fun savePalette(palette: ColorPalette) {
-        dao.insertPalette(ColorPaletteEntity.fromDomain(palette)) // Convertir de `ColorPalette` a `ColorPaletteEntity`
+        dao.insertPalette(ColorPaletteEntity.fromDomain(palette))
     }
 
     suspend fun deletePalette(palette: ColorPalette) {
-        dao.deletePalette(ColorPaletteEntity.fromDomain(palette)) // Convertir de `ColorPalette` a `ColorPaletteEntity`
+        dao.deletePalette(ColorPaletteEntity.fromDomain(palette))
+    }
+
+    suspend fun deleteAllPalettes() {
+        dao.deleteAllPalettes()
     }
 }
 

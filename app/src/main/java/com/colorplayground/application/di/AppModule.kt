@@ -13,16 +13,6 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-//    @Provides
-//    fun provideGenerateColorPalettesUseCase(): GenerateColorPalettesUseCase {
-//        return GenerateColorPalettesUseCase()
-//    }
-
-//    @Provides
-//    fun provideColorPaletteRepository(): ColorPaletteRepository {
-//        return ColorPaletteRepository()
-//    }
-
     @Provides
     fun provideSavePaletteUseCase(repository: ColorPaletteRepository): SavePaletteUseCase {
         return SavePaletteUseCase(repository)
