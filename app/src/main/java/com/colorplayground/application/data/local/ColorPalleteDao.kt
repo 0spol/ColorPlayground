@@ -17,5 +17,10 @@ interface ColorPaletteDao {
 
     @Delete
     suspend fun deletePalette(palette: ColorPaletteEntity)
+
+    @Query("DELETE FROM color_palette")
+    suspend fun deleteAllPalettes()
+
+
 }
 

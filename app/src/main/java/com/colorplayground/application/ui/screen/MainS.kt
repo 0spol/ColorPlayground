@@ -26,12 +26,7 @@ fun MainS(
         Spacer(modifier = Modifier.weight(1f))
 
         Button(onClick = {
-            viewModel.generatePalettes(1)
-            val palette = viewModel.colorPalettes.value.firstOrNull()
-            palette?.let {
-                Log.d("MainS", "Paleta generada: $it")
-                viewModel.savePalette(it)
-            }
+            viewModel.generateAndSavePalette(1)  // Llamamos a la función del ViewModel
         }) {
             Text(text = "Generar y Guardar Paleta")
         }
