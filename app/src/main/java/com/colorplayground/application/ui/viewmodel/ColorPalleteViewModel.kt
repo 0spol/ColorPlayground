@@ -26,6 +26,7 @@ class ColorPaletteViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _colorPalettes = MutableStateFlow<List<ColorPalette>>(emptyList())
+    val colorPalettes: StateFlow<List<ColorPalette>> = _colorPalettes
 
     private val _savedPalettes = MutableStateFlow<List<ColorPalette>>(emptyList())
     val savedPalettes: StateFlow<List<ColorPalette>> = _savedPalettes
@@ -35,19 +36,16 @@ class ColorPaletteViewModel @Inject constructor(
     }
 
     fun generateAndSavePalette(count: Int) {
-        val newPalettes = generateColorPalettesUseCase.execute(count, _colorPalettes.value.size)
+        val newPalettes = generateColorPalettesUseCase.execute(count, _savedPalettes.value.size)
 
-        newPalettes.firstOrNull()?.let { palette ->
-            savePalette(palette)
-            Log.d("ColorPaletteViewModel", "Paleta generada y guardada: $palette")
-        }
-    }
+        _colorPalettes.value += newPalettes
 
-    private fun savePalette(palette: ColorPalette) {
         viewModelScope.launch {
-            savePaletteUseCase.execute(palette)
+            newPalettes.forEach { palette ->
+                savePaletteUseCase.execute(palette)
+            }
             getAllSavedPalettes()
-            Log.d("ColorPaletteViewModel", "Paleta guardada: $palette")
+            Log.d("ColorPaletteViewModel", "Paletas generadas y guardadas: $newPalettes")
         }
     }
 
@@ -55,6 +53,7 @@ class ColorPaletteViewModel @Inject constructor(
         viewModelScope.launch {
             deleteAllPalettesUseCase.execute()
             _savedPalettes.value = emptyList()
+            _colorPalettes.value = emptyList()
             Log.d("ColorPaletteViewModel", "Todas las paletas han sido eliminadas")
         }
     }
@@ -71,14 +70,12 @@ class ColorPaletteViewModel @Inject constructor(
         viewModelScope.launch {
             getAllPalettesUseCase.execute().collect { paletteEntities ->
                 _savedPalettes.value = paletteEntities
+                _colorPalettes.value = paletteEntities
                 Log.d("ColorPaletteViewModel", "Paletas guardadas cargadas: $paletteEntities")
             }
         }
     }
 }
-
-
-
 
 
 

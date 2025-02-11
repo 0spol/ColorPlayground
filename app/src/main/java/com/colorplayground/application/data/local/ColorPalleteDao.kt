@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ColorPaletteDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPalette(palette: ColorPaletteEntity)
 
     @Query("SELECT * FROM color_palette")
@@ -20,7 +20,6 @@ interface ColorPaletteDao {
 
     @Query("DELETE FROM color_palette")
     suspend fun deleteAllPalettes()
-
 
 }
 

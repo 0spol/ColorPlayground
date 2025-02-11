@@ -1,14 +1,13 @@
 package com.colorplayground.application.ui.screen
 
-import android.util.Log
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.colorplayground.application.ui.viewmodel.ColorPaletteViewModel
@@ -20,23 +19,57 @@ fun MainS(
 ) {
     val viewModel: ColorPaletteViewModel = hiltViewModel()
 
-    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-        Spacer(modifier = Modifier.weight(1f))
-        Text(text = "MAIN SCREEN", fontSize = 25.sp)
-        Spacer(modifier = Modifier.weight(1f))
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "MAIN SCREEN",
+            fontSize = 28.sp,
+            style = MaterialTheme.typography.headlineMedium,
+            color = MaterialTheme.colorScheme.primary
+        )
 
-        Button(onClick = {
-            viewModel.generateAndSavePalette(1)  // Llamamos a la función del ViewModel
-        }) {
+        Spacer(modifier = Modifier.height(40.dp))
+
+        Button(
+            onClick = {
+                viewModel.generateAndSavePalette(1)
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+        ) {
             Text(text = "Generar y Guardar Paleta")
         }
 
-        Button(onClick = { navigateToSaveS() }) {
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(
+            onClick = { navigateToSaveS() },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+        ) {
             Text(text = "Navegar a Save Screen")
         }
-        Button(onClick = { navigateToMenuS() }) {
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(
+            onClick = { navigateToMenuS() },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+        ) {
             Text(text = "Navegar a Menu Screen")
         }
-        Spacer(modifier = Modifier.weight(1f))
     }
 }
+

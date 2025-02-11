@@ -6,22 +6,23 @@ import javax.inject.Inject
 
 class GenerateColorPalettesUseCase @Inject constructor(
     private val generateRandomColorUseCase: GenerateRandomColorUseCase,
-    private val getAllPalettesUseCase: GetAllPalettesUseCase,
 ) {
 
-    fun execute(count: Int, currentSize: Int): List<ColorPalette> {
+    fun execute(count: Int, size: Int): List<ColorPalette> {
         return List(count) { index ->
             ColorPalette(
-                id = System.currentTimeMillis() + index,
+                id = (size + index + 1).toLong(),
                 primaryColor = generateRandomColorUseCase.execute(),
                 secondaryColor = generateRandomColorUseCase.execute(),
                 tertiaryColor = generateRandomColorUseCase.execute(),
                 errorColor = generateRandomColorUseCase.execute(),
-                name = "Paleta ${currentSize + index + 1}"
+                name = "Paleta ${size + index + 1}"
             )
         }
     }
 }
+
+
 
 
 

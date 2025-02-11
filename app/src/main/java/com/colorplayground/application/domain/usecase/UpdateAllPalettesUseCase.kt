@@ -1,5 +1,6 @@
 package com.colorplayground.application.domain.usecase
 
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 class UpdateAllPalettesUseCase @Inject constructor(
@@ -9,22 +10,28 @@ class UpdateAllPalettesUseCase @Inject constructor(
 ) {
 
     suspend fun execute() {
-        getSavedPalettesUseCase.execute().collect { palettes ->
-            val updatedPalettes = palettes.map { palette ->
-                palette.copy(
-                    primaryColor = generateRandomColorUseCase.execute(),
-                    secondaryColor = generateRandomColorUseCase.execute(),
-                    tertiaryColor = generateRandomColorUseCase.execute(),
-                    errorColor = generateRandomColorUseCase.execute()
-                )
-            }
+        val palettes = getSavedPalettesUseCase.execute().first()
 
-            updatedPalettes.forEach { updatedPalette ->
-                savePaletteUseCase.execute(updatedPalette)
-            }
+        val updatedPalettes = palettes.map { palette ->
+            val newPrimaryColor = generateRandomColorUseCase.execute()
+            val newSecondaryColor = generateRandomColorUseCase.execute()
+            val newTertiaryColor = generateRandomColorUseCase.execute()
+            val newErrorColor = generateRandomColorUseCase.execute()
+
+            palette.copy(
+                primaryColor = newPrimaryColor,
+                secondaryColor = newSecondaryColor,
+                tertiaryColor = newTertiaryColor,
+                errorColor = newErrorColor
+            )
+        }
+
+        updatedPalettes.forEach { updatedPalette ->
+            savePaletteUseCase.execute(updatedPalette)
         }
     }
 }
+
 
 
 
