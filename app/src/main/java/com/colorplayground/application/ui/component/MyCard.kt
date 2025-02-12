@@ -43,18 +43,9 @@ fun MyCard(colorPalette: ColorPalette, onSave: (() -> Unit)? = null) {
             text = colorPalette.name,
             modifier = Modifier.padding(top = 5.dp),
             textAlign = TextAlign.Center,
-            fontSize = 12.sp,
-            color = Color.White
+            fontSize = 15.sp,
+            color = Color.Black
         )
-
-        onSave?.let {
-            Button(
-                onClick = { it() },
-                modifier = Modifier.padding(top = 5.dp)
-            ) {
-                Text("Guardar")
-            }
-        }
     }
 }
 
