@@ -16,11 +16,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import com.colorplayground.application.R
-import com.colorplayground.application.core.ui.theme.verde_escuro
-import com.colorplayground.application.core.ui.theme.verde_medio
-import com.colorplayground.application.core.ui.theme.verde_neon
-import com.colorplayground.application.domain.LoginPaletteVM
-import com.colorplayground.application.domain.LoginValidacionVM
+import com.colorplayground.application.ui.theme.verde_escuro
+import com.colorplayground.application.ui.theme.verde_medio
+import com.colorplayground.application.ui.theme.verde_neon
+import com.colorplayground.application.ui.viewmodel.LoginPaletteVM
+import com.colorplayground.application.ui.viewmodel.LoginValidacionVM
 
 class LoginPalette : AppCompatActivity() {
     private val viewModel: LoginPaletteVM by viewModels()

@@ -1,4 +1,4 @@
-package com.colorplayground.application.domain
+package com.colorplayground.application.ui.viewmodel
 
 
 import android.app.Application
@@ -7,9 +7,9 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.colorplayground.application.core.ui.theme.black_Color
-import com.colorplayground.application.core.ui.theme.white_Color
-import com.colorplayground.application.data.di.BitmapRepository
+import com.colorplayground.application.data.repository.BitmapRepository
+import com.colorplayground.application.ui.theme.black_Color
+import com.colorplayground.application.ui.theme.white_Color
 
 
 class LoginPaletteVM(application: Application) : AndroidViewModel(application) {

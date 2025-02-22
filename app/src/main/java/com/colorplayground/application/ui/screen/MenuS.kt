@@ -1,4 +1,4 @@
-package com.colorplayground.application.core.ui.screens
+package com.colorplayground.application.ui.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -11,7 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun MenuS(navigateToMainS: () -> Unit, navigateToLoginPreviewS: () -> Unit, navigateToImagePreview: () -> Unit) {
+fun MenuS(
+    navigateToMainS: () -> Unit,
+    navigateToLoginPreviewS: () -> Unit,
+    navigateToImagePreview: () -> Unit
+) {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = Modifier.weight(1f))
         Text(text = "MENU SCREEN", fontSize = 25.sp)

@@ -1,4 +1,4 @@
-package com.colorplayground.application.domain
+package com.colorplayground.application.ui.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

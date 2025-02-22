@@ -1,4 +1,4 @@
-package com.colorplayground.application.data.di
+package com.colorplayground.application.data.repository
 
 import android.app.Application
 import android.graphics.Bitmap
