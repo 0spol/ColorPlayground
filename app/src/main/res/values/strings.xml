@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ColorPlayground</string>
+    <string name="textView_Email">Email Address</string>
+    <string name="textView_Contraseña">Contraseña</string>
+    <string name="textView_Login">ColorPlayground</string>
+    <string name="button_left">Cancel</string>
+    <string name="button_right">Enter</string>
 </resources>

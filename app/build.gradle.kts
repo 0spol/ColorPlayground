@@ -88,12 +88,14 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.constraintlayout)
 
     // --- Serialización JSON ---
     implementation(libs.kotlinx.serialization.json)
 
     // --- Testing ---
-    // Dependencias para pruebas unitarias
     testImplementation(libs.junit)
 
     // Dependencias para pruebas en Android
