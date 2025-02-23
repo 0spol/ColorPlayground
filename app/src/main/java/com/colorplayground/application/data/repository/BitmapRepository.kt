@@ -5,52 +5,43 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
-
 import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
-
 import android.graphics.Shader
-import android.graphics.drawable.Drawable
-
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toBitmap
+import androidx.compose.ui.graphics.toArgb
+
 
 class BitmapRepository(private val application: Application) {
-    fun generateGradientBitmap(resourceId: Int): Bitmap {
+    fun generateGradientBitmap(resourceId: Int, color: androidx.compose.ui.graphics.Color): Bitmap {
         val originalBitmap = BitmapFactory.decodeResource(application.resources, resourceId)
-        val maskBitmap = Bitmap.createBitmap(originalBitmap.width, originalBitmap.height, Bitmap.Config.ARGB_8888)
+        val resultBitmap = Bitmap.createBitmap(originalBitmap.width, originalBitmap.height, Bitmap.Config.ARGB_8888)
 
-        val canvas = Canvas(maskBitmap)
+        val canvas = Canvas(resultBitmap)
         val paint = Paint()
 
+        // Draw the original bitmap
+        canvas.drawBitmap(originalBitmap, 0f, 0f, null)
+
+        // Apply the gradient
         val gradient = LinearGradient(
-            0f, maskBitmap.height.toFloat(), 0f, 0f,
-            Color.TRANSPARENT, Color.BLACK,
+            0f, 0f, 0f, resultBitmap.height.toFloat(),
+            color.toArgb(), Color.TRANSPARENT,
             Shader.TileMode.CLAMP
         )
 
         paint.shader = gradient
-        canvas.drawRect(0f, 0f, maskBitmap.width.toFloat(), maskBitmap.height.toFloat(), paint)
-
-        val maskedPaint = Paint()
-        maskedPaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_IN)
-
-        val resultBitmap = Bitmap.createBitmap(originalBitmap.width, originalBitmap.height, Bitmap.Config.ARGB_8888)
-        val resultCanvas = Canvas(resultBitmap)
-
-        resultCanvas.drawBitmap(originalBitmap, 0f, 0f, null)
-        resultCanvas.drawBitmap(maskBitmap, 0f, 0f, maskedPaint)
+        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+        canvas.drawRect(0f, 0f, resultBitmap.width.toFloat(), resultBitmap.height.toFloat(), paint)
 
         return resultBitmap
     }
-    //Modifique
 
-    fun generateGradientImageBitmap(resourceId: Int): ImageBitmap {
-        val bitmap = generateGradientBitmap(resourceId)
+    fun generateGradientImageBitmap(resourceId: Int, color: androidx.compose.ui.graphics.Color): ImageBitmap {
+        val bitmap = generateGradientBitmap(resourceId, color)
         return bitmap.asImageBitmap()
     }
 }

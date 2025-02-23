@@ -1,8 +1,6 @@
 package com.colorplayground.application.ui.screen
 
 import android.app.Application
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -29,7 +27,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -55,7 +52,6 @@ import com.colorplayground.application.ui.theme.new_tint_color
 import com.colorplayground.application.ui.theme.white_Color
 import com.colorplayground.application.ui.viewmodel.LoginPaletteVM
 import com.colorplayground.application.ui.viewmodel.LoginValidacionVM
-import kotlin.random.Random
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -72,7 +68,9 @@ fun LoginPreviewS(
     var password by remember { mutableStateOf("") }
 
     val bitmapRepository = remember { BitmapRepository(application) }
-    val gradientImageBitmap: ImageBitmap = remember { bitmapRepository.generateGradientImageBitmap(R.drawable.tinta0) }
+    val gradientImageBitmap: ImageBitmap = remember(Color.Red) {
+        bitmapRepository.generateGradientImageBitmap(R.drawable.tinta0, default_tint_color)
+    }
 
     Scaffold(
         topBar = {
@@ -186,14 +184,14 @@ fun LoginPreviewS(
                             // Botão de Login
                             DynamicButton(
                                 modifier = Modifier.weight(1f),
-                                backgroundColor = new_tint_color,
+                                backgroundColor = white_Color,
                                 text = stringResource(id = R.string.button_right),
                                 onClick = { onLoginClick(email, password) }
                             )
 
                             // Botão de Mudar Cor
                             DynamicButton(
-                                backgroundColor = new_tint_color,
+                                backgroundColor = white_Color,
                                 text = "Change Color",
                                 onClick = {
 
