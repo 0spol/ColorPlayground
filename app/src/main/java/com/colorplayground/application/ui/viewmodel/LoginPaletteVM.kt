@@ -3,12 +3,17 @@ package com.colorplayground.application.ui.viewmodel
 
 import android.app.Application
 import android.graphics.Bitmap
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.colorplayground.application.ui.theme.black_Color
 import com.colorplayground.application.ui.theme.white_Color
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 
 class LoginPaletteVM(application: Application) : AndroidViewModel(application) {
@@ -21,8 +26,8 @@ class LoginPaletteVM(application: Application) : AndroidViewModel(application) {
     private val _imageTintColor = MutableLiveData<Int>()
 //    val imageTintColor: LiveData<Int> get() = _imageTintColor
 
-//    private val _gradientBitmap = MutableLiveData<Bitmap>()
-//    val gradientBitmap: LiveData<Bitmap> get() = _gradientBitmap
+    private val _gradientBitmap = MutableStateFlow(Color.Red)
+    val gradientBitmap: StateFlow<Color> get() = _gradientBitmap
 
 
     private val _buttonColor = MutableLiveData<Int>()
@@ -91,5 +96,11 @@ class LoginPaletteVM(application: Application) : AndroidViewModel(application) {
     fun changeStrokeColor(newColor: androidx.compose.ui.graphics.Color) {
         _strokeColor.value = newColor.toArgb()
     }
+
+    fun updateColor(newColor: Color) {
+        _gradientBitmap.value = newColor
+    }
+
+
 
 }

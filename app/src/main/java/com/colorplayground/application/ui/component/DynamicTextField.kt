@@ -10,6 +10,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.VisualTransformation
+import com.colorplayground.application.ui.theme.ColorUtils.isColorLight
 
 @Composable
 fun DynamicTextField(
@@ -22,7 +23,7 @@ fun DynamicTextField(
     shape: RoundedCornerShape,
     visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
-    val labelColor = if (isColorLightTextField(backgroundColor)) Color.Black else Color.White
+    val labelColor = if (isColorLight(backgroundColor)) Color.Black else Color.White
 
     TextField(
         value = value,
@@ -59,12 +60,4 @@ fun DynamicTextField(
     )
 }
 
-// Função para verificar se a cor é clara ou escura
-fun isColorLightTextField(color: Color): Boolean {
-    val red = (color.red * 255).toInt()
-    val green = (color.green * 255).toInt()
-    val blue = (color.blue * 255).toInt()
 
-    val brightness = (red * 299 + green * 587 + blue * 114) / 1000 // Fórmula de luminosidade
-    return brightness >= 128 // Se for 128 ou mais, a cor é clara
-}

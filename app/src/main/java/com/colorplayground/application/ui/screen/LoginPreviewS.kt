@@ -1,6 +1,8 @@
 package com.colorplayground.application.ui.screen
 
 import android.app.Application
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -27,6 +29,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,13 +43,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import com.colorplayground.application.R
 import com.colorplayground.application.data.repository.BitmapRepository
 import com.colorplayground.application.ui.component.DynamicButton
 import com.colorplayground.application.ui.component.DynamicTextField
+import com.colorplayground.application.ui.theme.black_Color
+import com.colorplayground.application.ui.theme.default_tint_color
+import com.colorplayground.application.ui.theme.new_tint_color
+import com.colorplayground.application.ui.theme.white_Color
 import com.colorplayground.application.ui.viewmodel.LoginPaletteVM
 import com.colorplayground.application.ui.viewmodel.LoginValidacionVM
+import kotlin.random.Random
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -80,7 +89,7 @@ fun LoginPreviewS(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.Magenta)
+                    .background(black_Color)
                     .padding(paddingValues)
             ) {
                 // Background Image
@@ -109,9 +118,9 @@ fun LoginPreviewS(
                     Box(
                         contentAlignment = Alignment.Center,
                         modifier = Modifier
-                            .size(130.dp) // Define o tamanho total do círculo externo
-                            .background(Color.Blue, shape = CircleShape) // Fundo azul do círculo
-                            .border(4.dp, Color.White, CircleShape) // Adiciona uma borda branca ao redor
+                            .size(130.dp)
+                            .background(new_tint_color, shape = CircleShape)
+                            .border(4.dp, white_Color, CircleShape)
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_launcher_foreground),
@@ -125,8 +134,10 @@ fun LoginPreviewS(
                     // Title
                     Text(
                         text = stringResource(id = R.string.textView_Login),
-                        style = MaterialTheme.typography.headlineMedium,
-                        color = Color.White
+                        style = MaterialTheme.typography.headlineMedium.copy(
+                            fontWeight = FontWeight.Bold
+                        ),
+                        color = Color.White,
                     )
 
                     Spacer(modifier = Modifier.height(80.dp))
@@ -136,7 +147,7 @@ fun LoginPreviewS(
                         value = email,
                         onValueChange = { email = it },
                         label = { Text(stringResource(id = R.string.textView_Email)) },
-                        backgroundColor = Color.Red,
+                        backgroundColor = default_tint_color,
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(20.dp)
@@ -149,7 +160,7 @@ fun LoginPreviewS(
                         value = password,
                         onValueChange = { password = it },
                         label = { Text(stringResource(id = R.string.textView_Contraseña)) },
-                        backgroundColor = Color.Cyan,
+                        backgroundColor = default_tint_color,
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
                         visualTransformation = PasswordVisualTransformation(),
                         modifier = Modifier.fillMaxWidth(),
@@ -163,28 +174,30 @@ fun LoginPreviewS(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 8.dp),
-                        horizontalArrangement = Arrangement.spacedBy(10.dp) // Espaço entre os botões
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         // Botão de Login
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(vertical = 8.dp),
-                            horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally) // Espaço entre os botões
+                            horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally)
                         ) {
                             // Botão de Login
                             DynamicButton(
                                 modifier = Modifier.weight(1f),
-                                backgroundColor = Color.White,
+                                backgroundColor = new_tint_color,
                                 text = stringResource(id = R.string.button_right),
                                 onClick = { onLoginClick(email, password) }
                             )
 
                             // Botão de Mudar Cor
                             DynamicButton(
-                                backgroundColor = Color.Black,
+                                backgroundColor = new_tint_color,
                                 text = "Change Color",
-                                onClick = onChangeColorClick,
+                                onClick = {
+
+                                },
                                 modifier = Modifier.weight(1f)
                             )
                         }

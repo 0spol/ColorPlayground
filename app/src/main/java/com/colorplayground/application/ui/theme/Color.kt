@@ -21,3 +21,4 @@ val verde_neon = Color(0xFF0CF25D)
 val verde_medio = Color(0xFF038C3E)
 val verde_medio_escoro = Color(0xFF02735E)
 val verde_escuro = Color(0xFF025951)
+
