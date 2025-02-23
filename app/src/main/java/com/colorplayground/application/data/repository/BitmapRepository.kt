@@ -10,6 +10,8 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.Shader
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 
 class BitmapRepository(private val application: Application) {
     fun generateGradientBitmap(resourceId: Int): Bitmap {
@@ -38,5 +40,10 @@ class BitmapRepository(private val application: Application) {
         resultCanvas.drawBitmap(maskBitmap, 0f, 0f, maskedPaint)
 
         return resultBitmap
+    }
+
+    fun generateGradientImageBitmap(resourceId: Int): ImageBitmap {
+        val bitmap = generateGradientBitmap(resourceId)
+        return bitmap.asImageBitmap()
     }
 }
