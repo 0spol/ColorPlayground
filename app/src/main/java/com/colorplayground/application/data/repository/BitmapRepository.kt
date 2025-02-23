@@ -47,6 +47,7 @@ class BitmapRepository(private val application: Application) {
 
         return resultBitmap
     }
+    //Modifique
 
     fun generateGradientImageBitmap(resourceId: Int): ImageBitmap {
         val bitmap = generateGradientBitmap(resourceId)
