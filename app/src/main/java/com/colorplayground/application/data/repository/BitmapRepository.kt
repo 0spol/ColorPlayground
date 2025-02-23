@@ -23,10 +23,10 @@ class BitmapRepository(private val application: Application) {
         val canvas = Canvas(resultBitmap)
         val paint = Paint()
 
-        // Draw the original bitmap
+
         canvas.drawBitmap(originalBitmap, 0f, 0f, null)
 
-        // Apply the gradient
+
         val gradient = LinearGradient(
             0f, 0f, 0f, resultBitmap.height.toFloat(),
             color.toArgb(), Color.TRANSPARENT,
