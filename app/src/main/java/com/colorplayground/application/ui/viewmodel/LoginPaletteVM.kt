@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.colorplayground.application.data.repository.BitmapRepository
 import com.colorplayground.application.ui.theme.black_Color
 import com.colorplayground.application.ui.theme.white_Color
 
@@ -16,32 +17,33 @@ class LoginPaletteVM(application: Application) : AndroidViewModel(application) {
     //Código que se comunica con LoginPalette
 
     private val _backgroundColorAll = MutableLiveData<Int>()
-//    val backgroundColorAll: LiveData<Int> get() = _backgroundColorAll
+    val backgroundColorAll: LiveData<Int> get() = _backgroundColorAll
 
     private val _imageTintColor = MutableLiveData<Int>()
-//    val imageTintColor: LiveData<Int> get() = _imageTintColor
+    val imageTintColor: LiveData<Int> get() = _imageTintColor
 
-//    private val _gradientBitmap = MutableLiveData<Bitmap>()
-//    val gradientBitmap: LiveData<Bitmap> get() = _gradientBitmap
+    private val _gradientBitmap = MutableLiveData<Bitmap>()
+    val gradientBitmap: LiveData<Bitmap> get() = _gradientBitmap
 
+    private val bitmapRepository = BitmapRepository(application)
 
     private val _buttonColor = MutableLiveData<Int>()
-//    val buttonColor : LiveData<Int> get() = _buttonColor
+    val buttonColor : LiveData<Int> get() = _buttonColor
 
     private val _buttonTextColor = MutableLiveData<Int>()
-//    val buttonTextColor: LiveData<Int> get() = _buttonTextColor
+    val buttonTextColor: LiveData<Int> get() = _buttonTextColor
 
     private val _iconColor = MutableLiveData<Int>()
-//    val iconColor : LiveData<Int> get() = _iconColor
+    val iconColor : LiveData<Int> get() = _iconColor
 
     private val _textColor = MutableLiveData<Int>()
-//    val textColor : LiveData<Int> get() = _textColor
+    val textColor : LiveData<Int> get() = _textColor
 
     private val _backgroundColor = MutableLiveData<Int>()
-//    val backgroundColor: LiveData<Int> get() = _backgroundColor
+    val backgroundColor: LiveData<Int> get() = _backgroundColor
 
     private val _strokeColor = MutableLiveData<Int>()
-//    val strokeColor: LiveData<Int> get() = _strokeColor
+    val strokeColor: LiveData<Int> get() = _strokeColor
 
 
 
@@ -92,4 +94,7 @@ class LoginPaletteVM(application: Application) : AndroidViewModel(application) {
         _strokeColor.value = newColor.toArgb()
     }
 
+    fun generateGradientBitmap(resourceId: Int) {
+        _gradientBitmap.value = bitmapRepository.generateGradientBitmap(resourceId)
+    }
 }

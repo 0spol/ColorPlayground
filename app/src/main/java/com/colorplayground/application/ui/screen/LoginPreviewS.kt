@@ -1,201 +1,25 @@
 package com.colorplayground.application.ui.screen
 
-import android.app.Application
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.graphics.BlendMode
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
-import com.colorplayground.application.R
-import com.colorplayground.application.data.repository.BitmapRepository
-import com.colorplayground.application.ui.viewmodel.LoginPaletteVM
-import com.colorplayground.application.ui.viewmodel.LoginValidacionVM
+import androidx.compose.ui.unit.sp
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginPreviewS(
-    onLoginClick: (String, String) -> Unit,
-    onChangeColorClick: () -> Unit,
-    navigateBack: () -> Unit,
-    viewModel: LoginPaletteVM,
-    loginViewModel: LoginValidacionVM,
-    application: Application
-) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-
-    val bitmapRepository = remember { BitmapRepository(application) }
-    val gradientImageBitmap: ImageBitmap = remember { bitmapRepository.generateGradientImageBitmap(R.drawable.tinta0) }
-
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(text = stringResource(id = R.string.textView_Login)) },
-                navigationIcon = {
-                    IconButton(onClick = navigateBack) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
-                    }
-                }
-            )
-        },
-        content = { paddingValues ->
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Magenta)
-                    .padding(paddingValues)
-            ) {
-                // Background Image
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(570.dp) // Defina a altura desejada
-                        .align(Alignment.TopCenter)
-                        .padding(start = 10.dp) // Alinhe a imagem ao topo
-                ) {
-                    Image(
-                        bitmap = gradientImageBitmap,
-                        contentDescription = "tinta_goteando",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(60.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    // Top Icon
-                    Box(
-                        contentAlignment = Alignment.Center,
-                        modifier = Modifier
-                            .size(130.dp) // Define o tamanho total do círculo externo
-                            .background(Color.Blue, shape = CircleShape) // Fundo azul do círculo
-                            .border(4.dp, Color.White, CircleShape) // Adiciona uma borda branca ao redor
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                            contentDescription = "Logo",
-                            modifier = Modifier.size(110.dp)
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    // Title
-                    Text(
-                        text = stringResource(id = R.string.textView_Login),
-                        style = MaterialTheme.typography.headlineMedium,
-                        color = Color.White
-                    )
-
-                    Spacer(modifier = Modifier.height(80.dp))
-
-                    // Email Field
-                    TextField(
-                        value = email,
-                        onValueChange = { email = it },
-                        label = { Text(stringResource(id = R.string.textView_Email)) },
-                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(20.dp),
-                        colors = TextFieldDefaults.colors(
-                            focusedContainerColor = Color.Blue,
-                            unfocusedContainerColor = Color.Blue,
-                            disabledContainerColor = Color.Blue
-                        )
-                    )
-
-                    Spacer(modifier = Modifier.height(35.dp))
-
-                    // Password Field
-                    TextField(
-                        value = password,
-                        onValueChange = { password = it },
-                        label = { Text(stringResource(id = R.string.textView_Contraseña)) },
-                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
-                        visualTransformation = PasswordVisualTransformation(),
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(20.dp),
-                        colors = TextFieldDefaults.colors(
-                            focusedContainerColor = Color.Blue,
-                            unfocusedContainerColor = Color.Blue,
-                            disabledContainerColor = Color.Blue
-                        )
-                    )
-
-                    Spacer(modifier = Modifier.height(50.dp))
-
-                    // Login Button
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
-                        horizontalArrangement = Arrangement.spacedBy(10.dp) // Espaço entre os botões
-                    ) {
-                        // Botão de Login
-                        Button(
-                            onClick = { onLoginClick(email, password) },
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text(text = stringResource(id = R.string.button_right))
-                        }
-
-                        // Botão de Mudar Cor
-                        Button(
-                            onClick = onChangeColorClick,
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text(text = "Change Color")
-                        }
-                    }
-                }
-            }
+fun LoginPreviewS( navigateBack: () -> Unit ) {
+    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+        Spacer(modifier = Modifier.weight(1f))
+        Text(text = "LOGIN PREVIEW SCREEN", fontSize = 25.sp)
+        Spacer(modifier = Modifier.weight(1f))
+        Button(onClick = { navigateBack() }) {
+            Text(text = "Volver")
         }
-    )
+        Spacer(modifier = Modifier.weight(1f))
+    }
+
 }
