@@ -19,15 +19,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -36,11 +33,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.graphics.BlendMode
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -50,6 +43,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import com.colorplayground.application.R
 import com.colorplayground.application.data.repository.BitmapRepository
+import com.colorplayground.application.ui.component.DynamicButton
+import com.colorplayground.application.ui.component.DynamicTextField
 import com.colorplayground.application.ui.viewmodel.LoginPaletteVM
 import com.colorplayground.application.ui.viewmodel.LoginValidacionVM
 
@@ -137,36 +132,28 @@ fun LoginPreviewS(
                     Spacer(modifier = Modifier.height(80.dp))
 
                     // Email Field
-                    TextField(
+                    DynamicTextField(
                         value = email,
                         onValueChange = { email = it },
                         label = { Text(stringResource(id = R.string.textView_Email)) },
+                        backgroundColor = Color.Red,
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
                         modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(20.dp),
-                        colors = TextFieldDefaults.colors(
-                            focusedContainerColor = Color.Blue,
-                            unfocusedContainerColor = Color.Blue,
-                            disabledContainerColor = Color.Blue
-                        )
+                        shape = RoundedCornerShape(20.dp)
                     )
 
                     Spacer(modifier = Modifier.height(35.dp))
 
                     // Password Field
-                    TextField(
+                    DynamicTextField(
                         value = password,
                         onValueChange = { password = it },
                         label = { Text(stringResource(id = R.string.textView_Contraseña)) },
+                        backgroundColor = Color.Cyan,
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
                         visualTransformation = PasswordVisualTransformation(),
                         modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(20.dp),
-                        colors = TextFieldDefaults.colors(
-                            focusedContainerColor = Color.Blue,
-                            unfocusedContainerColor = Color.Blue,
-                            disabledContainerColor = Color.Blue
-                        )
+                        shape = RoundedCornerShape(20.dp)
                     )
 
                     Spacer(modifier = Modifier.height(50.dp))
@@ -179,20 +166,29 @@ fun LoginPreviewS(
                         horizontalArrangement = Arrangement.spacedBy(10.dp) // Espaço entre os botões
                     ) {
                         // Botão de Login
-                        Button(
-                            onClick = { onLoginClick(email, password) },
-                            modifier = Modifier.weight(1f)
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 8.dp),
+                            horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally) // Espaço entre os botões
                         ) {
-                            Text(text = stringResource(id = R.string.button_right))
+                            // Botão de Login
+                            DynamicButton(
+                                modifier = Modifier.weight(1f),
+                                backgroundColor = Color.White,
+                                text = stringResource(id = R.string.button_right),
+                                onClick = { onLoginClick(email, password) }
+                            )
+
+                            // Botão de Mudar Cor
+                            DynamicButton(
+                                backgroundColor = Color.Black,
+                                text = "Change Color",
+                                onClick = onChangeColorClick,
+                                modifier = Modifier.weight(1f)
+                            )
                         }
 
-                        // Botão de Mudar Cor
-                        Button(
-                            onClick = onChangeColorClick,
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text(text = "Change Color")
-                        }
                     }
                 }
             }
