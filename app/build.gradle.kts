@@ -91,6 +91,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.gson)
 
     // --- Serialización JSON ---
     implementation(libs.kotlinx.serialization.json)
