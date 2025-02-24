@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.colorplayground.application.ui.component.MyCard
+import com.colorplayground.application.ui.theme.ColorPlaygroundTheme
 import com.colorplayground.application.ui.viewmodel.ColorPaletteViewModel
 
 @Composable
@@ -33,73 +34,76 @@ fun SaveS(
 ) {
     val viewModel: ColorPaletteViewModel = hiltViewModel()
     val savedPalettes by viewModel.savedPalettes.collectAsState()
+    val activePalette by viewModel.activePalette.collectAsState()
 
-    Surface(modifier = Modifier.fillMaxSize()) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            if (savedPalettes.isEmpty()) {
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(text = "No hay paletas guardadas", color = Color.Black, fontSize = 18.sp)
-                }
-            } else {
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    items(savedPalettes) { palette ->
-                        MyCard(colorPalette = palette)
+    ColorPlaygroundTheme(customPalette = activePalette) {
+        Surface(modifier = Modifier.fillMaxSize()) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                if (savedPalettes.isEmpty()) {
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(text = "No hay paletas guardadas", color = Color.Black, fontSize = 18.sp)
+                    }
+                } else {
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        items(savedPalettes) { palette ->
+                            MyCard(colorPalette = palette)
+                        }
                     }
                 }
-            }
 
-            Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Button(
-                    onClick = { navigateToMainS() },
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(48.dp),
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("Volver")
-                }
+                    Button(
+                        onClick = { navigateToMainS() },
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(48.dp),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                    ) {
+                        Text("Volver")
+                    }
 
-                Button(
-                    onClick = { viewModel.deleteAllPalettes() },
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(48.dp),
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
-                ) {
-                    Text("Eliminar")
-                }
+                    Button(
+                        onClick = { viewModel.deleteAllPalettes() },
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(48.dp),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                    ) {
+                        Text("Eliminar")
+                    }
 
-                Button(
-                    onClick = { viewModel.updateAllPalettes() },
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(48.dp),
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
-                ) {
-                    Text("Actualizar")
+                    Button(
+                        onClick = { viewModel.updateAllPalettes() },
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(48.dp),
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                    ) {
+                        Text("Actualizar")
+                    }
                 }
             }
         }
