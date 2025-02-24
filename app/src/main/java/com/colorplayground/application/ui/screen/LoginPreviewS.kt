@@ -1,6 +1,7 @@
 package com.colorplayground.application.ui.screen
 
 import android.app.Application
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -14,11 +15,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,7 +31,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -50,7 +56,6 @@ import com.colorplayground.application.ui.theme.black_Color
 import com.colorplayground.application.ui.theme.default_tint_color
 import com.colorplayground.application.ui.theme.new_tint_color
 import com.colorplayground.application.ui.theme.white_Color
-import com.colorplayground.application.ui.viewmodel.LoginPaletteVM
 import com.colorplayground.application.ui.viewmodel.LoginValidacionVM
 
 
@@ -60,12 +65,19 @@ fun LoginPreviewS(
     onLoginClick: (String, String) -> Unit,
     onChangeColorClick: () -> Unit,
     navigateBack: () -> Unit,
-    viewModel: LoginPaletteVM,
     loginViewModel: LoginValidacionVM,
     application: Application
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    var showDialog by remember { mutableStateOf(false) }
+    var dialogMessage by remember { mutableStateOf("") }
+
+    val successfulMessage = stringResource(id = R.string.successful)
+    val failedMessage = stringResource(id = R.string.failed)
+
+    val loginState by loginViewModel.loginState.observeAsState()
 
     val bitmapRepository = remember { BitmapRepository(application) }
     val gradientImageBitmap: ImageBitmap = remember(Color.Red) {
@@ -129,7 +141,7 @@ fun LoginPreviewS(
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    // Title
+                    // Título
                     Text(
                         text = stringResource(id = R.string.textView_Login),
                         style = MaterialTheme.typography.headlineMedium.copy(
@@ -153,7 +165,7 @@ fun LoginPreviewS(
 
                     Spacer(modifier = Modifier.height(35.dp))
 
-                    // Password Field
+                    // Contraseña FIeld
                     DynamicTextField(
                         value = password,
                         onValueChange = { password = it },
@@ -167,40 +179,59 @@ fun LoginPreviewS(
 
                     Spacer(modifier = Modifier.height(50.dp))
 
-                    // Login Button
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 8.dp),
-                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            .padding(vertical = 18.dp),
+                        horizontalArrangement = Arrangement.Center
                     ) {
-                        // Botão de Login
-                        Row(
+                        // Botón de Login
+                        DynamicButton(
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 8.dp),
-                            horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally)
-                        ) {
-                            // Botão de Login
-                            DynamicButton(
-                                modifier = Modifier.weight(1f),
-                                backgroundColor = white_Color,
-                                text = stringResource(id = R.string.button_right),
-                                onClick = { onLoginClick(email, password) }
-                            )
-
-                            // Botão de Mudar Cor
-                            DynamicButton(
-                                backgroundColor = white_Color,
-                                text = "Change Color",
-                                onClick = {
-
-                                },
-                                modifier = Modifier.weight(1f)
-                            )
-                        }
-
+                                .fillMaxWidth(1f)
+                                .padding(horizontal = 20.dp),
+                            backgroundColor = white_Color,
+                            text = stringResource(id = R.string.button_right),
+                            onClick = { loginViewModel.validateLogin(email, password) }
+                        )
                     }
+
+                    LaunchedEffect(loginState) {
+                        when (loginState) {
+                            LoginValidacionVM.LoginState.SUCCESS -> {
+                                dialogMessage = successfulMessage
+                                showDialog = true
+                            }
+                            LoginValidacionVM.LoginState.FAILURE -> {
+                                dialogMessage = failedMessage
+                                showDialog = true
+                            }
+                            else -> {
+                                showDialog = false
+                            }
+                        }
+                    }
+
+                    if (showDialog) {
+                        AlertDialog(
+                            onDismissRequest = {
+                                showDialog = false
+                                loginViewModel.resetLoginState()
+                            },
+                            title = { Text(text = stringResource(id = R.string.topLogin)) },
+                            text = { Text(text = dialogMessage) },
+                            confirmButton = {
+                                Button(onClick = {
+                                    showDialog = false
+                                    loginViewModel.resetLoginState()
+                                }) {
+                                    Text(text = stringResource(id = R.string.bottom))
+                                }
+                            }
+                        )
+                    }
+
+
                 }
             }
         }

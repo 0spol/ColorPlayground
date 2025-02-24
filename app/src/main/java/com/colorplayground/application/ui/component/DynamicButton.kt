@@ -13,10 +13,10 @@ fun DynamicButton(backgroundColor: Color, text: String, onClick: () -> Unit, mod
     val textColor = if (isColorLight(backgroundColor)) Color.Black else Color.White
 
     Button(
-        onClick = { /* ação do botão */ },
-        colors = ButtonDefaults.buttonColors(backgroundColor)
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(backgroundColor),
+        modifier = modifier
     ) {
         Text(text, color = textColor)
     }
 }
-
