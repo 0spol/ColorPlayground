@@ -3,6 +3,7 @@ package com.colorplayground.application.ui.component
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -10,7 +11,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.VisualTransformation
-import com.colorplayground.application.ui.theme.ColorUtils.isColorLight
 
 @Composable
 fun DynamicTextField(
@@ -23,7 +23,7 @@ fun DynamicTextField(
     shape: RoundedCornerShape,
     visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
-    val labelColor = if (isColorLight(backgroundColor)) Color.Black else Color.White
+    val labelColor = (MaterialTheme.colorScheme.primary)
 
     TextField(
         value = value,

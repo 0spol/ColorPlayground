@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginValidacionVM @Inject constructor(application: Application) : AndroidViewModel(application) {
+class LoginValidationVM @Inject constructor(application: Application) : AndroidViewModel(application) {
     private val _loginState = MutableLiveData<LoginState?>()
     val loginState: LiveData<LoginState?> get() = _loginState
 
