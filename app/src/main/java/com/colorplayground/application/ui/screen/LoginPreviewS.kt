@@ -79,9 +79,10 @@ fun LoginPreviewS(
 
     val loginState by loginViewModel.loginState.observeAsState()
 
+    val primaryColor = MaterialTheme.colorScheme.primary
     val bitmapRepository = remember { BitmapRepository(application) }
-    val gradientImageBitmap: ImageBitmap = remember(Color.Red) {
-        bitmapRepository.generateGradientImageBitmap(R.drawable.tinta0, default_tint_color)
+    val gradientImageBitmap: ImageBitmap = remember(primaryColor) {
+        bitmapRepository.generateGradientImageBitmap(R.drawable.tinta0, primaryColor)
     }
 
     Scaffold(
@@ -99,16 +100,16 @@ fun LoginPreviewS(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(black_Color)
+                    .background(MaterialTheme.colorScheme.background)
                     .padding(paddingValues)
             ) {
                 // Background Image
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(570.dp) // Defina a altura desejada
+                        .height(570.dp)
                         .align(Alignment.TopCenter)
-                        .padding(start = 10.dp) // Alinhe a imagem ao topo
+                        .padding(start = 10.dp)
                 ) {
                     Image(
                         bitmap = gradientImageBitmap,
@@ -129,7 +130,7 @@ fun LoginPreviewS(
                         contentAlignment = Alignment.Center,
                         modifier = Modifier
                             .size(130.dp)
-                            .background(new_tint_color, shape = CircleShape)
+                            .background(MaterialTheme.colorScheme.primary, shape = CircleShape)
                             .border(4.dp, white_Color, CircleShape)
                     ) {
                         Image(
@@ -147,7 +148,7 @@ fun LoginPreviewS(
                         style = MaterialTheme.typography.headlineMedium.copy(
                             fontWeight = FontWeight.Bold
                         ),
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.primary,
                     )
 
                     Spacer(modifier = Modifier.height(80.dp))
@@ -157,7 +158,7 @@ fun LoginPreviewS(
                         value = email,
                         onValueChange = { email = it },
                         label = { Text(stringResource(id = R.string.textView_Email)) },
-                        backgroundColor = default_tint_color,
+                        backgroundColor = MaterialTheme.colorScheme.tertiary,
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(20.dp)
@@ -170,7 +171,7 @@ fun LoginPreviewS(
                         value = password,
                         onValueChange = { password = it },
                         label = { Text(stringResource(id = R.string.textView_Contraseña)) },
-                        backgroundColor = default_tint_color,
+                        backgroundColor = MaterialTheme.colorScheme.tertiary,
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
                         visualTransformation = PasswordVisualTransformation(),
                         modifier = Modifier.fillMaxWidth(),
@@ -190,7 +191,7 @@ fun LoginPreviewS(
                             modifier = Modifier
                                 .fillMaxWidth(1f)
                                 .padding(horizontal = 20.dp),
-                            backgroundColor = white_Color,
+                            backgroundColor = MaterialTheme.colorScheme.secondary,
                             text = stringResource(id = R.string.button_right),
                             onClick = { loginViewModel.validateLogin(email, password) }
                         )
