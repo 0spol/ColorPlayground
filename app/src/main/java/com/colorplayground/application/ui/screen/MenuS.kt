@@ -20,7 +20,6 @@ import com.colorplayground.application.ui.viewmodel.ColorPaletteViewModel
 fun MenuS(
     navigateToMainS: () -> Unit,
     navigateToLoginPreviewS: () -> Unit,
-    navigateToImagePreview: () -> Unit
 ) {
     val viewModel: ColorPaletteViewModel = hiltViewModel()
     val activePalette by viewModel.activePalette.collectAsState()
@@ -39,9 +38,7 @@ fun MenuS(
                 Button(onClick = { navigateToLoginPreviewS() }) {
                     Text(text = "Navegar a Login Preview")
                 }
-                Button(onClick = { navigateToImagePreview() }) {
-                    Text(text = "Navegar a Image Preview")
-                }
+
                 Spacer(modifier = Modifier.weight(1f))
             }
         }
