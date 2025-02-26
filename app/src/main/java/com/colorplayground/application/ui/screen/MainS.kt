@@ -1,10 +1,7 @@
 package com.colorplayground.application.ui.screen
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -13,6 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.colorplayground.application.ui.component.AnimatedArrow
+import com.colorplayground.application.ui.component.AppHeader
+import com.colorplayground.application.ui.component.BottomNavigationBar
 import com.colorplayground.application.ui.theme.ColorPlaygroundTheme
 import com.colorplayground.application.ui.viewmodel.ColorPaletteViewModel
 
@@ -25,60 +25,40 @@ fun MainS(
     val activePalette by viewModel.activePalette.collectAsState()
 
     ColorPlaygroundTheme(customPalette = activePalette) {
-        Surface(modifier = Modifier.fillMaxSize()) {
+        Scaffold(
+            topBar = { AppHeader() },
+            bottomBar = {
+                BottomNavigationBar(
+                    navigateToSaveS = navigateToSaveS,
+                    navigateToMenuS = navigateToMenuS,
+                    generatePalette = { viewModel.generateAndSavePalette(1) }
+                )
+            }
+        ) { paddingValues ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .padding(paddingValues)
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Text(
-                    text = "MAIN SCREEN",
-                    fontSize = 28.sp,
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.primary
-                )
+                Spacer(modifier = Modifier.height(20.dp))
 
-                Spacer(modifier = Modifier.height(40.dp))
+                AnimatedArrow()
+
+                Spacer(modifier = Modifier.height(10.dp))
 
                 Button(
-                    onClick = {
-                        viewModel.generateAndSavePalette(1)
-                    },
+                    onClick = { viewModel.generateAndSavePalette(1) },
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                        .fillMaxWidth(0.8f)
+                        .height(80.dp),
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp)
                 ) {
-                    Text(text = "Generar y Guardar Paleta")
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Button(
-                    onClick = { navigateToSaveS() },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
-                ) {
-                    Text(text = "Navegar a Save Screen")
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Button(
-                    onClick = { navigateToMenuS() },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
-                ) {
-                    Text(text = "Navegar a Menu Screen")
+                    Text(text = "🎨 Generar Paleta", fontSize = 20.sp)
                 }
             }
         }
     }
 }
-
