@@ -2,6 +2,16 @@
 
 **ColorPlayground** is an Android app built with Jetpack Compose for creating and testing color palettes in real-time. It allows developers and designers to experiment with different color schemes and apply them to UI components instantly.
 
+## Top contributors
+
+- Kamilly - [CristhianPB](https://github.com/CristhianPB)
+   - Logic for applying palette to different views
+- Christian - [Kamilly-code](https://github.com/Kamilly-code)
+   - Login view and design
+- Gonzalo - [0spol](https://github.com/0spol)
+   - GitHub administration, persistence, navigation, UI, and project management
+
+
 ## Features
 - Create custom color palettes with HEX/RGB values.
 - Test colors on various Jetpack Compose components like buttons, text, and backgrounds.
