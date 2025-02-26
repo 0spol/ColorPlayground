@@ -5,4 +5,9 @@
     <string name="textView_Login">ColorPlayground</string>
     <string name="button_left">Cancel</string>
     <string name="button_right">Enter</string>
+    <string name="successful">Inicio de sesión exitoso</string>
+    <string name="failed">Error de acceso</string>
+    <string name="topLogin">Login Status</string>
+    <string name="bottom">OK</string>
+
 </resources>

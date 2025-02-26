@@ -1,6 +1,10 @@
 package com.colorplayground.application.data.model
 
 import androidx.compose.ui.graphics.Color
+import com.colorplayground.application.ui.theme.Purple40
+import com.colorplayground.application.ui.theme.ambar_color
+import com.colorplayground.application.ui.theme.red_color
+import com.colorplayground.application.ui.theme.white_Color
 
 data class ColorPalette(
     val id: Long,
@@ -13,10 +17,10 @@ data class ColorPalette(
     companion object {
         fun default() = ColorPalette(
             id = -1L,
-            primaryColor = Color(0xFF6200EE),   // Morado
-            secondaryColor = Color(0xFFFFFFFF), // Turquesa
-            tertiaryColor = Color(0xFFFFC107),  // Ámbar
-            errorColor = Color(0xFFB00020),     // Rojo
+            primaryColor = Purple40,
+            secondaryColor = white_Color,
+            tertiaryColor = ambar_color,
+            errorColor = red_color,
             name = "Default Palette"
         )
     }

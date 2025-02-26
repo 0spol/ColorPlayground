@@ -34,6 +34,7 @@ room = "2.6.1"
 
 # Kotlin Symbol Processing (KSP)
 ksp = "2.1.10-1.0.29"
+runtimeLivedata = "1.7.8"
 
 [libraries]
 # AndroidX Core y ciclo de vida
@@ -78,6 +79,7 @@ androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
 
 [plugins]
 # Plugins de Gradle y Kotlin
