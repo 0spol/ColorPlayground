@@ -27,9 +27,11 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.colorplayground.application.data.model.ColorPalette
 import com.colorplayground.application.domain.usecase.DeleteONEPaletteUseCase
 import com.colorplayground.application.domain.usecase.UpdateONEPaletteUseCase
+import com.colorplayground.application.ui.viewmodel.ColorPaletteViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -39,6 +41,7 @@ fun MyCard(
     deletePaletteUseCase: DeleteONEPaletteUseCase,
     onSave: (() -> Unit)? = null
 ) {
+    val viewModel: ColorPaletteViewModel = hiltViewModel()
     var showActions by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
 
@@ -96,14 +99,15 @@ fun MyCard(
                     ) {
                         Button(onClick = {
                             coroutineScope.launch {
-                                updatePaletteUseCase.execute(colorPalette)
+                                viewModel.updateOnePalette(colorPalette)
+                                onSave?.invoke()
                             }
                         }) {
                             Text("Update")
                         }
                         Button(onClick = {
                             coroutineScope.launch {
-                                deletePaletteUseCase.execute(colorPalette)
+                                viewModel.deleteOnePalette(colorPalette)
                             }
                         }) {
                             Text("Delete")

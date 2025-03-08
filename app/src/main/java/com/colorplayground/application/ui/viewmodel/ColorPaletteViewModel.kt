@@ -46,19 +46,24 @@ class ColorPaletteViewModel @Inject constructor(
     }
 
     fun generateAndSavePalette(count: Int) {
-        val newPalettes = generateColorPalettesUseCase.execute(count, _savedPalettes.value.size)
-        _colorPalettes.value += newPalettes
-
-        if (newPalettes.isNotEmpty()) {
-            setActivePalette(newPalettes.first())
-        }
-
         viewModelScope.launch {
+            val newPalettes = generateColorPalettesUseCase.execute(count, _savedPalettes.value.size)
+            _colorPalettes.value += newPalettes
+
             newPalettes.forEach { palette ->
                 savePaletteUseCase.execute(palette)
             }
+
             getAllSavedPalettes()
-            Log.d("ColorPaletteViewModel", "Paletas generadas y guardadas: $newPalettes")
+
+            _savedPalettes.collect { updatedPalettes ->
+                val lastPalette = updatedPalettes.lastOrNull()
+                if (lastPalette != null) {
+                    setActivePalette(lastPalette)
+                }
+            }
+
+            Log.d("ColorPaletteViewModel", "Paletas geradas e salvas: $newPalettes")
         }
     }
 
@@ -102,8 +107,12 @@ class ColorPaletteViewModel @Inject constructor(
         viewModelScope.launch {
             updatePaletteUseCase.execute(palette)
             getAllSavedPalettes()
-            setActivePalette(palette)
-            Log.d("ColorPaletteViewModel", "Paleta actualizada: $palette")
+
+            _savedPalettes.collect { updatedPalettes ->
+                val updatedPalette = updatedPalettes.find { it.id == palette.id } ?: return@collect
+                setActivePalette(updatedPalette)
+                Log.d("ColorPaletteViewModel", "Paleta atualizada e ativada: $updatedPalette")
+            }
         }
     }
 
@@ -111,5 +120,9 @@ class ColorPaletteViewModel @Inject constructor(
     private fun setActivePalette(palette: ColorPalette) {
         _activePalette.value = palette
         activePaletteRepository.saveActivePalette(palette)
+
+
+        _activePalette.value = ColorPalette.default()
+        _activePalette.value = palette
     }
 }
