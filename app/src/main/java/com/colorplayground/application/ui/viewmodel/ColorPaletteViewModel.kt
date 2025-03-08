@@ -102,6 +102,7 @@ class ColorPaletteViewModel @Inject constructor(
         viewModelScope.launch {
             updatePaletteUseCase.execute(palette)
             getAllSavedPalettes()
+            setActivePalette(palette)
             Log.d("ColorPaletteViewModel", "Paleta actualizada: $palette")
         }
     }
