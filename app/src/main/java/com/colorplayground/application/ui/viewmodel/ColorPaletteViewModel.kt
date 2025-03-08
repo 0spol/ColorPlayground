@@ -10,6 +10,8 @@ import com.colorplayground.application.domain.usecase.GetAllPalettesUseCase
 import com.colorplayground.application.domain.usecase.SavePaletteUseCase
 import com.colorplayground.application.domain.usecase.UpdateAllPalettesUseCase
 import com.colorplayground.application.data.repository.ActivePaletteRepository
+import com.colorplayground.application.domain.usecase.DeleteONEPaletteUseCase
+import com.colorplayground.application.domain.usecase.UpdateONEPaletteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,7 +25,11 @@ class ColorPaletteViewModel @Inject constructor(
     private val deleteAllPalettesUseCase: DeleteAllPalettesUseCase,
     private val updateAllPalettesUseCase: UpdateAllPalettesUseCase,
     private val getAllPalettesUseCase: GetAllPalettesUseCase,
-    private val activePaletteRepository: ActivePaletteRepository
+    private val activePaletteRepository: ActivePaletteRepository,
+
+    val deletePaletteUseCase: DeleteONEPaletteUseCase,
+    val updatePaletteUseCase: UpdateONEPaletteUseCase,
+
 ) : ViewModel() {
 
     private val _colorPalettes = MutableStateFlow<List<ColorPalette>>(emptyList())
@@ -83,6 +89,23 @@ class ColorPaletteViewModel @Inject constructor(
             }
         }
     }
+
+    fun deleteOnePalette(palette: ColorPalette) {
+        viewModelScope.launch {
+            deletePaletteUseCase.execute(palette)
+            getAllSavedPalettes()
+            Log.d("ColorPaletteViewModel", "Paleta borrada: $palette")
+        }
+    }
+
+    fun updateOnePalette(palette: ColorPalette) {
+        viewModelScope.launch {
+            updatePaletteUseCase.execute(palette)
+            getAllSavedPalettes()
+            Log.d("ColorPaletteViewModel", "Paleta actualizada: $palette")
+        }
+    }
+
 
     private fun setActivePalette(palette: ColorPalette) {
         _activePalette.value = palette
