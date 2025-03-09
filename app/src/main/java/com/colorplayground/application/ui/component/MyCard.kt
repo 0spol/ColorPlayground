@@ -2,24 +2,13 @@ package com.colorplayground.application.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,12 +16,9 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.colorplayground.application.data.model.ColorPalette
 import com.colorplayground.application.domain.usecase.DeleteONEPaletteUseCase
 import com.colorplayground.application.domain.usecase.UpdateONEPaletteUseCase
-import com.colorplayground.application.ui.viewmodel.ColorPaletteViewModel
-import kotlinx.coroutines.launch
 
 @Composable
 fun MyCard(
@@ -40,11 +26,11 @@ fun MyCard(
     updatePaletteUseCase: UpdateONEPaletteUseCase,
     deletePaletteUseCase: DeleteONEPaletteUseCase,
     modifier: Modifier = Modifier,
-    onSave: (() -> Unit)? = null
+    onSelect: () -> Unit,
+    onUpdate: () -> Unit,
+    onDelete: () -> Unit
 ) {
-    val viewModel: ColorPaletteViewModel = hiltViewModel()
     var showActions by remember { mutableStateOf(false) }
-    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier.padding(5.dp),
@@ -98,27 +84,13 @@ fun MyCard(
                         modifier = Modifier.align(Alignment.Center),
                         verticalArrangement = Arrangement.SpaceEvenly
                     ) {
-                        Button(onClick = {
-                            coroutineScope.launch {
-                                viewModel.selectPalette(colorPalette)
-                                onSave?.invoke()
-                            }
-                        }) {
+                        Button(onClick = onSelect) {
                             Text("Select")
                         }
-                        Button(onClick = {
-                            coroutineScope.launch {
-                                viewModel.updateOnePalette(colorPalette)
-                                onSave?.invoke()
-                            }
-                        }) {
+                        Button(onClick = onUpdate) {
                             Text("Update")
                         }
-                        Button(onClick = {
-                            coroutineScope.launch {
-                                viewModel.deleteOnePalette(colorPalette)
-                            }
-                        }) {
+                        Button(onClick = onDelete) {
                             Text("Delete")
                         }
                     }

@@ -17,79 +17,76 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.colorplayground.application.R
-import com.colorplayground.application.domain.usecase.DeleteONEPaletteUseCase
-import com.colorplayground.application.domain.usecase.UpdateONEPaletteUseCase
 import com.colorplayground.application.ui.component.AddPaletteCard
 import com.colorplayground.application.ui.component.Header
 import com.colorplayground.application.ui.component.MyCard
 import com.colorplayground.application.ui.component.SaveScreenBottomBar
 import com.colorplayground.application.ui.theme.ColorPlaygroundTheme
 import com.colorplayground.application.ui.viewmodel.ColorPaletteViewModel
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
+@Composable
+fun SaveS(
+    navigateToMainS: () -> Unit,
+) {
+    val viewModel: ColorPaletteViewModel = hiltViewModel()
+    val savedPalettes by viewModel.savedPalettes.collectAsState()
+    val activePalette by viewModel.activePalette.collectAsState()
 
-    @Composable
-    fun SaveS(
-        navigateToMainS: () -> Unit,
-    ) {
-        val viewModel: ColorPaletteViewModel = hiltViewModel()
-        val savedPalettes by viewModel.savedPalettes.collectAsState()
-        val activePalette by viewModel.activePalette.collectAsState()
-
-        ColorPlaygroundTheme(customPalette = activePalette) {
-            Scaffold(
-                topBar = { Header(navigateToMainS, stringResource(R.string.save_SH)) },
-                bottomBar = { SaveScreenBottomBar(viewModel) }
-            ) { paddingValues ->
-                Surface(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(paddingValues)
-                        .padding(16.dp),
-                    color = MaterialTheme.colorScheme.background
+    ColorPlaygroundTheme(customPalette = activePalette) {
+        Scaffold(
+            topBar = { Header(navigateToMainS, stringResource(R.string.save_SH)) },
+            bottomBar = { SaveScreenBottomBar(viewModel) }
+        ) { paddingValues ->
+            Surface(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .padding(16.dp),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.SpaceBetween
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
-                        LazyVerticalGrid(
-                            columns = GridCells.Fixed(2),
-                            modifier = Modifier
-                                .weight(1f)
-                                .fillMaxSize(),
-                            verticalArrangement = Arrangement.spacedBy(16.dp),
-                            horizontalArrangement = Arrangement.spacedBy(16.dp)
-                        ) {
-                            item {
-                                AddPaletteCard {
-                                    viewModel.generateAndSavePalette(1)
-                                }
+                        item {
+                            AddPaletteCard {
+                                viewModel.generateAndSavePalette(1)
                             }
+                        }
 
-                            if (savedPalettes.isEmpty()) {
-                                item(span = { GridItemSpan(2) }) {
-                                    Box(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(400.dp),
-                                        contentAlignment = Alignment.Center
-                                    ) {
-                                        Text(
-                                            text = "No hay paletas guardadas",
-                                            color = Color.Black,
-                                            fontSize = 18.sp
-                                        )
-                                    }
-                                }
-                            } else {
-                                items(savedPalettes) { palette ->
-                                    MyCard(
-                                        colorPalette = palette,
-                                        updatePaletteUseCase = viewModel.updatePaletteUseCase,
-                                        deletePaletteUseCase = viewModel.deletePaletteUseCase
+                        if (savedPalettes.isEmpty()) {
+                            item(span = { GridItemSpan(2) }) {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(400.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = "No hay paletas guardadas",
+                                        color = Color.Black,
+                                        fontSize = 18.sp
                                     )
                                 }
+                            }
+                        } else {
+                            items(savedPalettes) { palette ->
+                                MyCard(
+                                    colorPalette = palette,
+                                    updatePaletteUseCase = viewModel.updatePaletteUseCase,
+                                    deletePaletteUseCase = viewModel.deletePaletteUseCase,
+                                    onSelect = { viewModel.selectPalette(palette) },
+                                    onUpdate = { viewModel.updateOnePalette(palette) },
+                                    onDelete = { viewModel.deleteOnePalette(palette) }
+                                )
                             }
                         }
                     }
@@ -97,3 +94,4 @@ import javax.inject.Inject
             }
         }
     }
+}

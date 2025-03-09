@@ -48,19 +48,35 @@ class ColorPaletteViewModel @Inject constructor(
 
     fun generateAndSavePalette(count: Int) {
         viewModelScope.launch {
-            val newPalettes = generateColorPalettesUseCase.execute(count, _savedPalettes.value.size)
-            _colorPalettes.value += newPalettes
+            val existingIds = _savedPalettes.value.map { it.id }.toSet()
+            val maxId = existingIds.maxOrNull() ?: 0L
 
-            if (newPalettes.isNotEmpty()) {
-                setActivePalette(newPalettes.first())
+
+            val newPalettes = generateColorPalettesUseCase.execute(count, _savedPalettes.value.size)
+
+            val updatedPalettes = newPalettes.mapIndexed { index, palette ->
+                val newId = maxId + index + 1
+                palette.copy(
+                    id = newId,
+                    name = "Paleta $newId"
+                )
             }
 
-            newPalettes.forEach { palette ->
+            _colorPalettes.value = _colorPalettes.value + updatedPalettes
+
+            updatedPalettes.forEach { palette ->
                 savePaletteUseCase.execute(palette)
             }
             getAllSavedPalettes()
 
-            Log.d("ColorPaletteViewModel", "Paletas generadas y guardadas: $newPalettes")
+            _savedPalettes.collect { updatedPalettes ->
+                val lastPalette = _colorPalettes.value.lastOrNull()
+                if (lastPalette != null) {
+                    setActivePalette(lastPalette)
+                }
+            }
+
+            Log.d("ColorPaletteViewModel", "Paletas geradas e salvas: $updatedPalettes")
         }
     }
 
@@ -85,7 +101,7 @@ class ColorPaletteViewModel @Inject constructor(
     private fun getAllSavedPalettes() {
         viewModelScope.launch {
             getAllPalettesUseCase.execute().collect { paletteEntities ->
-                _savedPalettes.value = paletteEntities
+                _savedPalettes.value = paletteEntities.sortedBy { it.id }
                 _colorPalettes.value = paletteEntities
                 Log.d("ColorPaletteViewModel", "Paletas guardadas cargadas: $paletteEntities")
             }
@@ -95,6 +111,10 @@ class ColorPaletteViewModel @Inject constructor(
     fun deleteOnePalette(palette: ColorPalette) {
         viewModelScope.launch {
             deletePaletteUseCase.execute(palette)
+
+            _savedPalettes.value = _savedPalettes.value.filter { it.id != palette.id }
+            _colorPalettes.value = _colorPalettes.value.filter { it.id != palette.id }
+
             getAllSavedPalettes()
             Log.d("ColorPaletteViewModel", "Paleta borrada: $palette")
         }
