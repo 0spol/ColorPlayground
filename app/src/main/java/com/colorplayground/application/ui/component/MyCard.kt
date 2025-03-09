@@ -39,6 +39,7 @@ fun MyCard(
     colorPalette: ColorPalette,
     updatePaletteUseCase: UpdateONEPaletteUseCase,
     deletePaletteUseCase: DeleteONEPaletteUseCase,
+    modifier: Modifier = Modifier,
     onSave: (() -> Unit)? = null
 ) {
     val viewModel: ColorPaletteViewModel = hiltViewModel()
@@ -97,6 +98,14 @@ fun MyCard(
                         modifier = Modifier.align(Alignment.Center),
                         verticalArrangement = Arrangement.SpaceEvenly
                     ) {
+                        Button(onClick = {
+                            coroutineScope.launch {
+                                viewModel.selectPalette(colorPalette)
+                                onSave?.invoke()
+                            }
+                        }) {
+                            Text("Select")
+                        }
                         Button(onClick = {
                             coroutineScope.launch {
                                 viewModel.updateOnePalette(colorPalette)

@@ -16,6 +16,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -50,20 +51,16 @@ class ColorPaletteViewModel @Inject constructor(
             val newPalettes = generateColorPalettesUseCase.execute(count, _savedPalettes.value.size)
             _colorPalettes.value += newPalettes
 
+            if (newPalettes.isNotEmpty()) {
+                setActivePalette(newPalettes.first())
+            }
+
             newPalettes.forEach { palette ->
                 savePaletteUseCase.execute(palette)
             }
-
             getAllSavedPalettes()
 
-            _savedPalettes.collect { updatedPalettes ->
-                val lastPalette = updatedPalettes.lastOrNull()
-                if (lastPalette != null) {
-                    setActivePalette(lastPalette)
-                }
-            }
-
-            Log.d("ColorPaletteViewModel", "Paletas geradas e salvas: $newPalettes")
+            Log.d("ColorPaletteViewModel", "Paletas generadas y guardadas: $newPalettes")
         }
     }
 
@@ -115,6 +112,14 @@ class ColorPaletteViewModel @Inject constructor(
             }
         }
     }
+
+    fun selectPalette(palette: ColorPalette) {
+        _activePalette.value = palette
+        activePaletteRepository.saveActivePalette(palette)
+        Log.d("ColorPaletteViewModel", "Paleta selecionada: $palette")
+    }
+
+
 
 
     private fun setActivePalette(palette: ColorPalette) {
