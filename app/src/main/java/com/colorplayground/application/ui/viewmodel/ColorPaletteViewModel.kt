@@ -1,22 +1,21 @@
 package com.colorplayground.application.ui.viewmodel
 
+import android.app.Activity
+import android.content.Context
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.colorplayground.application.data.model.ColorPalette
-import com.colorplayground.application.domain.usecase.DeleteAllPalettesUseCase
-import com.colorplayground.application.domain.usecase.GenerateColorPalettesUseCase
-import com.colorplayground.application.domain.usecase.GetAllPalettesUseCase
-import com.colorplayground.application.domain.usecase.SavePaletteUseCase
-import com.colorplayground.application.domain.usecase.UpdateAllPalettesUseCase
+import com.colorplayground.application.domain.usecase.*
 import com.colorplayground.application.data.repository.ActivePaletteRepository
-import com.colorplayground.application.domain.usecase.DeleteONEPaletteUseCase
-import com.colorplayground.application.domain.usecase.UpdateONEPaletteUseCase
+import com.colorplayground.application.ui.di.HasShownTutorial
+import com.colorplayground.application.ui.di.SetTutorialShown
+import com.colorplayground.application.ui.di.ShowTapTargetView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,11 +26,9 @@ class ColorPaletteViewModel @Inject constructor(
     private val updateAllPalettesUseCase: UpdateAllPalettesUseCase,
     private val getAllPalettesUseCase: GetAllPalettesUseCase,
     private val activePaletteRepository: ActivePaletteRepository,
-
     val deletePaletteUseCase: DeleteONEPaletteUseCase,
     val updatePaletteUseCase: UpdateONEPaletteUseCase,
-
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _colorPalettes = MutableStateFlow<List<ColorPalette>>(emptyList())
     val colorPalettes: StateFlow<List<ColorPalette>> = _colorPalettes
@@ -51,7 +48,6 @@ class ColorPaletteViewModel @Inject constructor(
             val existingIds = _savedPalettes.value.map { it.id }.toSet()
             val maxId = existingIds.maxOrNull() ?: 0L
 
-
             val newPalettes = generateColorPalettesUseCase.execute(count, _savedPalettes.value.size)
 
             val updatedPalettes = newPalettes.mapIndexed { index, palette ->
@@ -70,13 +66,13 @@ class ColorPaletteViewModel @Inject constructor(
             getAllSavedPalettes()
 
             _savedPalettes.collect { updatedPalettes ->
-                val lastPalette = _colorPalettes.value.lastOrNull()
+                val lastPalette = updatedPalettes.lastOrNull()
                 if (lastPalette != null) {
                     setActivePalette(lastPalette)
                 }
             }
 
-            Log.d("ColorPaletteViewModel", "Paletas geradas e salvas: $updatedPalettes")
+
         }
     }
 
@@ -111,12 +107,8 @@ class ColorPaletteViewModel @Inject constructor(
     fun deleteOnePalette(palette: ColorPalette) {
         viewModelScope.launch {
             deletePaletteUseCase.execute(palette)
-
-            _savedPalettes.value = _savedPalettes.value.filter { it.id != palette.id }
-            _colorPalettes.value = _colorPalettes.value.filter { it.id != palette.id }
-
             getAllSavedPalettes()
-            Log.d("ColorPaletteViewModel", "Paleta borrada: $palette")
+            Log.d("ColorPaletteViewModel", "Paleta deletada: $palette")
         }
     }
 
@@ -139,15 +131,8 @@ class ColorPaletteViewModel @Inject constructor(
         Log.d("ColorPaletteViewModel", "Paleta selecionada: $palette")
     }
 
-
-
-
     private fun setActivePalette(palette: ColorPalette) {
         _activePalette.value = palette
         activePaletteRepository.saveActivePalette(palette)
-
-
-        _activePalette.value = ColorPalette.default()
-        _activePalette.value = palette
     }
 }

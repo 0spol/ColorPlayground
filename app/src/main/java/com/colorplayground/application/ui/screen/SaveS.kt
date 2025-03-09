@@ -95,7 +95,7 @@ fun SaveS(navigateToMainS: () -> Unit) {
                                     onSelect = { viewModel.selectPalette(palette) },
                                     onUpdate = { viewModel.updateOnePalette(palette) },
                                     onDelete = { viewModel.deleteOnePalette(palette) },
-                                    onViewReady = { targetView = it } // Capturar View
+                                    onViewReady = { targetView = it }
                                 )
                             }
                         }
@@ -103,7 +103,6 @@ fun SaveS(navigateToMainS: () -> Unit) {
                 }
             }
         }
-
 
         LaunchedEffect(targetView) {
             if (targetView != null && !HasShownTutorial(context)) {
