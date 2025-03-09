@@ -31,7 +31,7 @@ class ColorPaletteViewModel @Inject constructor(
     val deletePaletteUseCase: DeleteONEPaletteUseCase,
     val updatePaletteUseCase: UpdateONEPaletteUseCase,
 
-) : ViewModel() {
+    ) : ViewModel() {
 
     private val _colorPalettes = MutableStateFlow<List<ColorPalette>>(emptyList())
     val colorPalettes: StateFlow<List<ColorPalette>> = _colorPalettes
@@ -62,7 +62,7 @@ class ColorPaletteViewModel @Inject constructor(
                 )
             }
 
-            _colorPalettes.value = _colorPalettes.value + updatedPalettes
+            _colorPalettes.value += updatedPalettes
 
             updatedPalettes.forEach { palette ->
                 savePaletteUseCase.execute(palette)

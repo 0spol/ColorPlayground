@@ -118,6 +118,6 @@ fun SaveS(navigateToMainS: () -> Unit) {
 
                 SetTutorialShown(context)
             }
-            }
         }
+    }
 }
