@@ -3,11 +3,12 @@ package com.colorplayground.application.ui.di
 import android.app.Activity
 import android.graphics.Typeface
 import android.view.View
+import androidx.compose.ui.layout.LayoutCoordinates
 import com.colorplayground.application.R
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetView
 
-fun showTapTargetView(activity: Activity, targetView: View) {
+fun ShowTapTargetView(activity: Activity, targetView: View, onCardClick: () -> Unit) {
     TapTargetView.showFor(activity,
         TapTarget.forView(targetView, "Clique no Card", "Clique no Card para ver as opções de Update, Select e Delete")
             .outerCircleColor(R.color.purple_200)
@@ -28,7 +29,7 @@ fun showTapTargetView(activity: Activity, targetView: View) {
         object : TapTargetView.Listener() {
             override fun onTargetClick(view: TapTargetView) {
                 super.onTargetClick(view)
-                // Ação ao clicar no alvo
+                onCardClick()
             }
         })
 }
