@@ -46,6 +46,3 @@ This repository has adopted a Code of Conduct that we expect project participant
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
-
-## Registro de Prompts y Soluciones IA
-Aquí se documentan los prompts utilizados y las soluciones generadas por IA para mejorar el desarrollo del proyecto. [Registro de Prompts y Soluciones IA](./AI-CHAT)
