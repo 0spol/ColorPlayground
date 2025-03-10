@@ -100,6 +100,9 @@ dependencies {
     // --- Testing ---
     testImplementation(libs.junit)
 
+    // --- Tag target View ---
+    implementation (libs.taptargetview)
+
     // Dependencias para pruebas en Android
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.junit)
