@@ -30,9 +30,6 @@ import com.colorplayground.application.ui.component.AddPaletteCard
 import com.colorplayground.application.ui.component.Header
 import com.colorplayground.application.ui.component.MyCard
 import com.colorplayground.application.ui.component.SaveScreenBottomBar
-import com.colorplayground.application.ui.di.HasShownTutorial
-import com.colorplayground.application.ui.di.SetTutorialShown
-import com.colorplayground.application.ui.di.ShowTapTargetView
 import com.colorplayground.application.ui.theme.ColorPlaygroundTheme
 import com.colorplayground.application.ui.viewmodel.ColorPaletteViewModel
 
@@ -42,13 +39,15 @@ fun SaveS(navigateToMainS: () -> Unit) {
     val viewModel: ColorPaletteViewModel = hiltViewModel()
     val savedPalettes by viewModel.savedPalettes.collectAsState()
     val activePalette by viewModel.activePalette.collectAsState()
-    val context = LocalContext.current
     var targetView by remember { mutableStateOf<View?>(null) }
+    val snackbarHostState = remember { SnackbarHostState() }
+    var showSnackbar by remember { mutableStateOf(true) }
 
     ColorPlaygroundTheme(customPalette = activePalette) {
         Scaffold(
             topBar = { Header(navigateToMainS, stringResource(R.string.save_SH)) },
-            bottomBar = { SaveScreenBottomBar(viewModel) }
+            bottomBar = { SaveScreenBottomBar(viewModel) },
+            snackbarHost = { SnackbarHost(snackbarHostState) }
         ) { paddingValues ->
             Surface(
                 modifier = Modifier
@@ -95,7 +94,7 @@ fun SaveS(navigateToMainS: () -> Unit) {
                                     onSelect = { viewModel.selectPalette(palette) },
                                     onUpdate = { viewModel.updateOnePalette(palette) },
                                     onDelete = { viewModel.deleteOnePalette(palette) },
-                                    onViewReady = { targetView = it }
+                                    onViewReady = { }
                                 )
                             }
                         }
@@ -104,18 +103,10 @@ fun SaveS(navigateToMainS: () -> Unit) {
             }
         }
 
-        LaunchedEffect(targetView) {
-            if (targetView != null && !HasShownTutorial(context)) {
-                ShowTapTargetView(context as Activity, targetView!!) {
-                    if (viewModel.savedPalettes.value.isNotEmpty()) {
-                        val targetPalette = viewModel.savedPalettes.value.first()
-                        viewModel.selectPalette(targetPalette)
-                    } else {
-                        viewModel.generateAndSavePalette(1)
-                    }
-                }
-
-                SetTutorialShown(context)
+        if (showSnackbar) {
+            LaunchedEffect(snackbarHostState) {
+                snackbarHostState.showSnackbar("Haz clic en tu paleta para ver otras opciones.")
+                showSnackbar = false
             }
         }
     }

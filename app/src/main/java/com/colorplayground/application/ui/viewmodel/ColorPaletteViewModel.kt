@@ -1,6 +1,7 @@
 package com.colorplayground.application.ui.viewmodel
 
 import android.app.Activity
+import android.app.Application
 import android.content.Context
 import android.util.Log
 import android.view.View
@@ -9,9 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.colorplayground.application.data.model.ColorPalette
 import com.colorplayground.application.domain.usecase.*
 import com.colorplayground.application.data.repository.ActivePaletteRepository
-import com.colorplayground.application.ui.di.HasShownTutorial
-import com.colorplayground.application.ui.di.SetTutorialShown
-import com.colorplayground.application.ui.di.ShowTapTargetView
+
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -38,6 +37,10 @@ class ColorPaletteViewModel @Inject constructor(
 
     private val _activePalette = MutableStateFlow(activePaletteRepository.activePalette.value)
     val activePalette: StateFlow<ColorPalette?> = _activePalette
+
+    private val _isFirstPaletteAfterDelete = MutableStateFlow(false)
+    val isFirstPaletteAfterDelete: StateFlow<Boolean> = _isFirstPaletteAfterDelete
+
 
     init {
         getAllSavedPalettes()
@@ -71,8 +74,7 @@ class ColorPaletteViewModel @Inject constructor(
                     setActivePalette(lastPalette)
                 }
             }
-
-
+            Log.d("ColorPaletteViewModel", "Paletas geradas e salvas: $updatedPalettes")
         }
     }
 
@@ -135,4 +137,7 @@ class ColorPaletteViewModel @Inject constructor(
         _activePalette.value = palette
         activePaletteRepository.saveActivePalette(palette)
     }
+
+
 }
+

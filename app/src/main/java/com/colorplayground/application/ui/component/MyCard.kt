@@ -1,5 +1,7 @@
 package com.colorplayground.application.ui.component
 
+
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import androidx.compose.foundation.background
@@ -15,8 +17,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -24,6 +28,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.colorplayground.application.data.model.ColorPalette
 import com.colorplayground.application.domain.usecase.DeleteONEPaletteUseCase
 import com.colorplayground.application.domain.usecase.UpdateONEPaletteUseCase
+
 
 @Composable
 fun MyCard(
@@ -37,6 +42,7 @@ fun MyCard(
     onViewReady: (View) -> Unit
 ) {
     var showActions by remember { mutableStateOf(false) }
+    val localView = LocalView.current
 
     Column(
         modifier = Modifier.padding(5.dp),
@@ -46,8 +52,7 @@ fun MyCard(
             modifier = Modifier
                 .size(width = 150.dp, height = 150.dp)
                 .pointerInput(Unit) {
-                    detectTapGestures(onPress = { showActions = !showActions })
-                },
+                    detectTapGestures(onPress = { showActions = !showActions }) },
             shape = RoundedCornerShape(8.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
         ) {
@@ -87,7 +92,7 @@ fun MyCard(
                         Button(onClick = onSelect) { Text("Select") }
                         Button(onClick = onUpdate) { Text("Update") }
                         Button(onClick = {
-                            showActions = false // Esconde os botões após deletar
+                            showActions = false
                             onDelete()
                         }) { Text("Delete") }
                     }
