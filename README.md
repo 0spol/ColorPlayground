@@ -46,3 +46,6 @@ This repository has adopted a Code of Conduct that we expect project participant
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
+
+## AI-CHAT RESUME
+[AI-CHAT](AI-CHAT.md)
