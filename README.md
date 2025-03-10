@@ -7,7 +7,7 @@
 - Christian - [CristhianPB](https://github.com/CristhianPB)
    - Logic for applying palette to different views
 - Kamilly - [Kamilly-code](https://github.com/Kamilly-code)
-   - Login view and design
+   - Login view, validation and palette menu design
 - Gonzalo - [0spol](https://github.com/0spol)
    - GitHub administration, persistence, navigation, UI, and project management
 
@@ -46,3 +46,6 @@ This repository has adopted a Code of Conduct that we expect project participant
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
+
+## Registro de Prompts y Soluciones IA
+Aquí se documentan los prompts utilizados y las soluciones generadas por IA para mejorar el desarrollo del proyecto. [Registro de Prompts y Soluciones IA](./AI-CHAT)
