@@ -91,7 +91,7 @@ fun LoginPreviewS(
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(text = stringResource(id = R.string.textView_Login)) },
+                    title = { Text(text = stringResource(id = R.string.app_name)) },
                     navigationIcon = {
                         IconButton(onClick = navigateBack) {
                             Icon(imageVector = Icons.Filled.ArrowBackIosNew, contentDescription = "Back")
@@ -147,7 +147,7 @@ fun LoginPreviewS(
 
                         // Título
                         Text(
-                            text = stringResource(id = R.string.textView_Login),
+                            text = stringResource(id = R.string.app_name),
                             style = MaterialTheme.typography.headlineMedium.copy(
                                 fontWeight = FontWeight.Bold
                             ),
@@ -173,7 +173,7 @@ fun LoginPreviewS(
                         DynamicTextField(
                             value = password,
                             onValueChange = { password = it },
-                            label = { Text(stringResource(id = R.string.textView_Contraseña)) },
+                            label = { Text(stringResource(id = R.string.textView_Password)) },
                             backgroundColor = MaterialTheme.colorScheme.tertiary,
                             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
                             visualTransformation = PasswordVisualTransformation(),

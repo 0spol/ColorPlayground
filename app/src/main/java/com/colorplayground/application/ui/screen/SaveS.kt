@@ -79,7 +79,7 @@ fun SaveS(navigateToMainS: () -> Unit) {
                                     contentAlignment = Alignment.Center
                                 ) {
                                     Text(
-                                        text = "No hay paletas guardadas",
+                                        text = "Without palettes saved!",
                                         color = Color.Black,
                                         fontSize = 18.sp
                                     )
@@ -105,7 +105,7 @@ fun SaveS(navigateToMainS: () -> Unit) {
 
         if (showSnackbar) {
             LaunchedEffect(snackbarHostState) {
-                snackbarHostState.showSnackbar("Haz clic en tu paleta para ver otras opciones.")
+                snackbarHostState.showSnackbar("Pick one of them to see the options!")
                 showSnackbar = false
             }
         }

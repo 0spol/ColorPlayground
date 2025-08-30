@@ -57,7 +57,7 @@ class ColorPaletteViewModel @Inject constructor(
                 val newId = maxId + index + 1
                 palette.copy(
                     id = newId,
-                    name = "Paleta $newId"
+                    name = "Palette $newId"
                 )
             }
 
@@ -74,7 +74,6 @@ class ColorPaletteViewModel @Inject constructor(
                     setActivePalette(lastPalette)
                 }
             }
-            Log.d("ColorPaletteViewModel", "Paletas geradas e salvas: $updatedPalettes")
         }
     }
 
@@ -101,7 +100,6 @@ class ColorPaletteViewModel @Inject constructor(
             getAllPalettesUseCase.execute().collect { paletteEntities ->
                 _savedPalettes.value = paletteEntities.sortedBy { it.id }
                 _colorPalettes.value = paletteEntities
-                Log.d("ColorPaletteViewModel", "Paletas guardadas cargadas: $paletteEntities")
             }
         }
     }
@@ -110,7 +108,6 @@ class ColorPaletteViewModel @Inject constructor(
         viewModelScope.launch {
             deletePaletteUseCase.execute(palette)
             getAllSavedPalettes()
-            Log.d("ColorPaletteViewModel", "Paleta deletada: $palette")
         }
     }
 
@@ -122,7 +119,6 @@ class ColorPaletteViewModel @Inject constructor(
             _savedPalettes.collect { updatedPalettes ->
                 val updatedPalette = updatedPalettes.find { it.id == palette.id } ?: return@collect
                 setActivePalette(updatedPalette)
-                Log.d("ColorPaletteViewModel", "Paleta atualizada e ativada: $updatedPalette")
             }
         }
     }
@@ -130,7 +126,6 @@ class ColorPaletteViewModel @Inject constructor(
     fun selectPalette(palette: ColorPalette) {
         _activePalette.value = palette
         activePaletteRepository.saveActivePalette(palette)
-        Log.d("ColorPaletteViewModel", "Paleta selecionada: $palette")
     }
 
     private fun setActivePalette(palette: ColorPalette) {

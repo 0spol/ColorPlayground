@@ -31,14 +31,14 @@ fun BottomNavigationBar(
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             IconButton(onClick = navigateToSaveS) {
-                Icon(Icons.Default.Save, contentDescription = "Guardar")
+                Icon(Icons.Default.Save, contentDescription = "To save")
             }
             IconButton(onClick = generatePalette) {
-                Icon(Icons.Default.AutoAwesome, contentDescription = "Generar paleta")
+                Icon(Icons.Default.AutoAwesome, contentDescription = "Generate Palette")
             }
-            IconButton(onClick = navigateToMenuS) {
-                Icon(Icons.Default.Brush, contentDescription = "Personalizar")
-            }
+//            IconButton(onClick = navigateToMenuS) {
+//                Icon(Icons.Default.Brush, contentDescription = "Customize")
+//            }
         }
     }
 }

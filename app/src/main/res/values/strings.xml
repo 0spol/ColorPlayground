@@ -1,16 +1,14 @@
 <resources>
-    <string name="app_name">ColorPlayground</string>
+    <string name="app_name">Color Playground</string>
     <string name="textView_Email">Email Address</string>
-    <string name="textView_Contraseña">Contraseña</string>
-    <string name="textView_Login">ColorPlayground</string>
+    <string name="textView_Password">Password</string>
     <string name="button_left">Cancel</string>
     <string name="button_right">Enter</string>
-    <string name="successful">Inicio de sesión exitoso</string>
-    <string name="failed">Error de acceso</string>
+    <string name="successful">Successful login</string>
+    <string name="failed">Access error</string>
     <string name="topLogin">Login Status</string>
     <string name="bottom">OK</string>
-    <string name="save_SH">Paletas Guardadas</string>
-    <string name="menu_SH">Menú</string>
-    <string name="LoginPs">Probar paleta en Login</string>
-
+    <string name="save_SH">Pallets saved</string>
+    <string name="menu_SH">Menu</string>
+    <string name="LoginPs">Test pallet on login</string>
 </resources>

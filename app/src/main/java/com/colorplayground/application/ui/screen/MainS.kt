@@ -30,7 +30,6 @@ fun MainS(
     val viewModel: ColorPaletteViewModel = hiltViewModel()
     val activePalette by viewModel.activePalette.collectAsState()
 
-    // Estado que se actualiza cuando se genera una nueva paleta
     val showToast = remember { androidx.compose.runtime.mutableStateOf(false) }
 
     ColorPlaygroundTheme(customPalette = activePalette) {
@@ -67,14 +66,14 @@ fun MainS(
                         .height(80.dp),
                     shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp)
                 ) {
-                    Text(text = "🎨 Generar Paleta", fontSize = 20.sp)
+                    Text(text = "🎨 Generate Palette", fontSize = 20.sp)
                 }
             }
 
             if (showToast.value) {
                 val context = LocalContext.current
                 LaunchedEffect(showToast.value) {
-                    Toast.makeText(context, "Paleta generada exitosamente", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, "Palette generated successfully", Toast.LENGTH_SHORT)
                         .show()
                     showToast.value = false
                 }

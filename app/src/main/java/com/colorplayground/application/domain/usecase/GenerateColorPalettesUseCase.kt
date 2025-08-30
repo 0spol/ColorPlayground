@@ -16,7 +16,7 @@ class GenerateColorPalettesUseCase @Inject constructor(
                 secondaryColor = generateRandomColorUseCase.execute(),
                 tertiaryColor = generateRandomColorUseCase.execute(),
                 errorColor = generateRandomColorUseCase.execute(),
-                name = "Paleta ${size + index + 1}"
+                name = "Palette ${size + index + 1}"
             )
         }
     }

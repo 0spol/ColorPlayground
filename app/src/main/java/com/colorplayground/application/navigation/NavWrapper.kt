@@ -37,6 +37,5 @@ fun NavWrapper() {
                 navigateBack = { navController.popBackStack() }
             )
         }
-
     }
 }
